@@ -1,0 +1,84 @@
+body {
+        display: grid;
+        background-color: grey;
+        padding: 5rem;
+        overflow: auto;
+        grid-template-areas:
+            'header header'
+            'menu menu'
+            'content content'
+            'functionality functionality'
+            'footer footer';
+        background-image: url("anya.gif");
+}
+
+div {
+    border-width: 20px;
+    border-color: brown;
+    border-style: double;
+}
+
+div > * {
+    margin: 1rem;
+}
+
+#content {
+    display: flex;
+    grid-area: content;
+    margin: 10px;
+    background-color: antiquewhite;
+}
+
+@media(max-width: 480px) {
+   body {
+        grid-template-areas:
+            'header'
+            'menu'
+            'content'
+            'functionality'
+            'footer';
+    }
+
+    #content {
+        display: block;
+    }
+}
+
+#menu {
+    grid-area: menu;
+    text-align: center;
+    justify-content: space-around;
+    background-image: url("anya.gif");
+}
+
+#header {
+    grid-area: header;
+    text-align: center;
+}
+
+#functionality {
+    grid-area: functionality;
+    display:flex;
+    justify-content: center;
+    background-image: url("anya.gif");
+}
+
+footer {
+    grid-area: footer;
+    border: 10px dotted blue;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Times New Roman';
+    background: url("frieren.png")  center;
+}
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
