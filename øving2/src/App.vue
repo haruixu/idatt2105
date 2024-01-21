@@ -1,23 +1,47 @@
 <template>
   <div class="wrapper">
-    <Calculator></Calculator>
-    <Log></Log>
+    <Calculator class="faggot" @calculate="addToLog"/>
+    <Log class="fuck" :equation-log="log" />
   </div>
 </template>
 
 <style scoped>
   .wrapper {
     display: flex;
+    min-height: 75vh;
+    max-width: 500px;
     justify-content: center;
     align-content: center;
     background-color: gray ;
-    border-radius: 2%
+    border-radius: 2%;
   }
+
+  .faggot, .fuck {
+    flex: 1; /* This ensures both components take equal height */
+    width: 100%; /* Both components take 100% width of the parent container */
+    border-radius: 5%;
+    background-color: red;
+  }
+
+  .fuck {
+    border: #00bd7e;
+    border-style: solid;
+    padding: 2px;
+  }
+
 </style>
 
 <script setup lang="ts">
+//todo make log go to bottom at phone
   import Calculator from '@/components/Calculator.vue';
-  //import Log from '@/components/Log.vue';
+  import Log from '@/components/Log.vue'
+  import { ref } from 'vue'
+
+  const log = ref([] as string[]);
+
+  const addToLog = (expression: string) => {
+    log.value.unshift(expression);
+  };
 
 </script>
 

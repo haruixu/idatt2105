@@ -1,21 +1,32 @@
 <template>
-  <div class="log" v-for="expression in ">
-    <!-- v:for  --->
+  <div class="container">
+    <ul class="list">
+      <li v-for="(expression, index) in equationLog" :key="index">
+        {{expression}}
+      </li>
+    </ul>
   </div>
 </template>
 
 <style scoped>
 
-.log {
-  list-style: none
+.container {
+  min-width: 400px;
+  overflow: auto;
+}
+
+.list {
+  font-size: 30px;
 }
 
 </style>
 
 
 <script setup lang="ts">
-
-import { ref } from 'vue'
-
-
+const props = defineProps({
+  equationLog: {
+    type: Array as () => string[],
+    required: true
+  }
+})
 </script>

@@ -17,7 +17,6 @@
   display: flex;
   flex-direction: column;
   width:100%;
-  border-radius: 5%;
 }
 
 .buttons {
@@ -34,11 +33,12 @@
 
 button {
   font-size: 30px;
-  min-width: 100px;
-  height: 100px;
+  /*width: 100px;
+  height: 100px;*/
   border-radius: 10%;
   border-color: #00bd7e;
 }
+
 
 .delete-all, .answer, .delete {
   background-color: gray;
@@ -62,7 +62,7 @@ button {
   border-radius: 10px;
 }
 
-.delete-all { grid-area: delete-all; }
+/*.delete-all { grid-area: delete-all; }
 .answer { grid-area: answer; }
 .delete { grid-area: delete; }
 .plus { grid-area: plus; }
@@ -77,26 +77,34 @@ button {
 .eight { grid-area: eight; }
 .nine { grid-area: nine; }
 .divide { grid-area: divide; }
-.zero { grid-area: zero; }
 .point { grid-area: point; }
-.equals { grid-area: equals; }
+.equals { grid-area: equals; }*/
+.zero { grid-area: zero; }
 
 </style>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-//import Log from '@/components/Log.vue'
+import { expression } from 'mathjs'
 
-const isValid = ref(true);
+const emit = defineEmits<{
+  calculate: [expression: string]
+}>()
 
 let storedVal = "";
 let displayVal = ref("  ");
 let isFinal = false;
+let isInvalid = false;
+
+/*
+if operator and lastchar is operator => return
+if wasEqual and number => reset, add number
+if wasEqual and operator => lastResult, add operator
+ */
 
 function calculate(value: string) {
   switch (value) {
     case 'C': displayVal.value = "";
-      isFinal = true;
       break;
 
     case 'ANS': displayVal.value = useAnswer(displayVal.value)
@@ -114,31 +122,49 @@ function calculate(value: string) {
     case '-':
     case '/':
     case '*':
-      if (isFinal) {
+      if (isInvalid) {
         displayVal.value = "";
+        isInvalid = false;
       } else {
         displayVal.value += value;
+        isFinal = false;
       }
       break;
-    default: displayVal.value += value;
+    default: if (isFinal) {
+      displayVal.value = value;
+      isFinal = false;
+      isInvalid = false;
+    } else {
+      displayVal.value += value;
+    }
   }
 }
 
 function evaluateExpression(expression: string) {
-  console.log(expression + ":")
+  console.log("expression:" + expression + ":" + expression.length)
+
   try {
 
     if (hasDividedByZero(expression)) {
-        return "Cannot divide by zero";
+      isInvalid = true;
+      return "Cannot divide by zero";
+    }
+
+    if (expression.includes("//")) {
+      isInvalid = true;
+      return "Invalid expression"
     }
 
     let result = eval(expression).toString();
     storedVal = result;
-    //Log.list.add(expression + " = " + result)
+    emit('calculate', expression + " = " + result)
+    console.log("result:" + result + ":" + result.length)
     return result;
 
   } catch(Error) {
-    console.log(Error);
+    console.log(Error); //todo remove
+    isFinal = true;
+    isInvalid = true;
     return "Invalid expression"
   }
 }
@@ -154,11 +180,15 @@ function useAnswer(expression: string) {
     return expression;
   }
 
-  if (operands.includes(lastChar)) {
+  if (expression === "") {
+    return storedVal;
+  }
+
+  if (operands.includes(lastChar)) { //if last character is operand add storedVal to the string
     return expression + storedVal;
   }
 
-  return expression + "*" + storedVal;
+  return expression + "*" + storedVal; //Multiply if no operator
 }
 
   const btnNames = {
@@ -182,4 +212,5 @@ function useAnswer(expression: string) {
     'point': '.',
     'equals': '=',
   }
+
 </script>
