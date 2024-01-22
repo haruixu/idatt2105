@@ -6,7 +6,6 @@
 <style scoped>
   .wrapper {
     display: flex;
-    min-height: 75vh;
     max-width: 500px;
     justify-content: center;
     align-content: center;
@@ -15,13 +14,15 @@
   }
 
   .calculator, .log {
-    flex: 1; /* This ensures both components take equal height */
-    width: 100%; /* Both components take 100% width of the parent container */
+    flex: 1; /*ensure both components take equal height */
+    width: 100%; /*both components take 100% width of the parent container */
     border-radius: 5%;
-    background-color: red;
   }
 
   .log {
+    min-height: 30vh;
+    max-height: 38vh;
+    overflow: auto;
     border: #00bd7e;
     border-style: solid;
     padding: 2px;
