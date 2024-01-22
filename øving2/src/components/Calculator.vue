@@ -95,34 +95,23 @@ let displayVal = ref("  ");
 let isFinal = false;
 let isInvalid = false;
 
-/*
-if operator and lastchar is operator => return
-if wasEqual and number => reset, add number
-if wasEqual and operator => lastResult, add operator
- */
-
 function calculate(value: string) {
   switch (value) {
     case 'C': displayVal.value = "";
       break;
-
     case 'ANS': displayVal.value = useAnswer(displayVal.value)
     break;
-
     case 'DEL': displayVal.value = displayVal.value.slice(0, -1);
     break;
-
     case '=':
       displayVal.value = evaluateExpression(displayVal.value);
       break;
-
     case '+':
     case '-':
     case '/':
     case '*':
       displayVal.value = useOperator(value, displayVal.value);
       break;
-
     default: displayVal.value = useNumber(value, displayVal.value);
   }
 }
@@ -193,7 +182,6 @@ function useOperator(operator: string, expression: string) {
   }
   isFinal = false;
   return expression + operator;
-
 }
 
 function useNumber(number: string, expression: string) {

@@ -1,8 +1,6 @@
 <template>
-  <div class="wrapper">
-    <Calculator class="faggot" @calculate="addToLog"/>
-    <Log class="fuck" :equation-log="log" />
-  </div>
+    <Calculator class="calculator" @calculate="addToLog"/>
+    <Log class="log" :equation-log="log" />
 </template>
 
 <style scoped>
@@ -16,14 +14,14 @@
     border-radius: 2%;
   }
 
-  .faggot, .fuck {
+  .calculator, .log {
     flex: 1; /* This ensures both components take equal height */
     width: 100%; /* Both components take 100% width of the parent container */
     border-radius: 5%;
     background-color: red;
   }
 
-  .fuck {
+  .log {
     border: #00bd7e;
     border-style: solid;
     padding: 2px;
