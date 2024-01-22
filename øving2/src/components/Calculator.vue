@@ -85,7 +85,6 @@ button {
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { expression } from 'mathjs'
 
 const emit = defineEmits<{
   calculate: [expression: string]
@@ -115,28 +114,16 @@ function calculate(value: string) {
 
     case '=':
       displayVal.value = evaluateExpression(displayVal.value);
-      isFinal = true;
       break;
 
     case '+':
     case '-':
     case '/':
     case '*':
-      if (isInvalid) {
-        displayVal.value = "";
-        isInvalid = false;
-      } else {
-        displayVal.value += value;
-        isFinal = false;
-      }
+      displayVal.value = useOperator(value, displayVal.value);
       break;
-    default: if (isFinal) {
-      displayVal.value = value;
-      isFinal = false;
-      isInvalid = false;
-    } else {
-      displayVal.value += value;
-    }
+
+    default: displayVal.value = useNumber(value, displayVal.value);
   }
 }
 
@@ -147,11 +134,13 @@ function evaluateExpression(expression: string) {
 
     if (hasDividedByZero(expression)) {
       isInvalid = true;
+      isFinal = true;
       return "Cannot divide by zero";
     }
 
-    if (expression.includes("//")) {
+    if (expression.includes("//") || expression.includes("**")) {
       isInvalid = true;
+      isFinal = true;
       return "Invalid expression"
     }
 
@@ -159,6 +148,7 @@ function evaluateExpression(expression: string) {
     storedVal = result;
     emit('calculate', expression + " = " + result)
     console.log("result:" + result + ":" + result.length)
+    isFinal = true;
     return result;
 
   } catch(Error) {
@@ -176,11 +166,11 @@ function useAnswer(expression: string) {
   let operands = ['+', '-', '*', '/'];
   let lastChar = expression.charAt(expression.length -1);
 
-  if (storedVal === "") {
+  if (storedVal === "") {//Keep the same expression if there is no saved answer
     return expression;
   }
 
-  if (expression === "") {
+  if (expression === "") {//Add storedVal if there is no expression
     return storedVal;
   }
 
@@ -188,7 +178,32 @@ function useAnswer(expression: string) {
     return expression + storedVal;
   }
 
+  if (isInvalid) {//if was invalid, delete "Invalid expression" string and use storedVal
+    isInvalid = false;
+    return storedVal
+  }
+
   return expression + "*" + storedVal; //Multiply if no operator
+}
+
+function useOperator(operator: string, expression: string) {
+  if (isInvalid) {
+    isInvalid = false;
+    return "";
+  }
+  isFinal = false;
+  return expression + operator;
+
+}
+
+function useNumber(number: string, expression: string) {
+  if (isFinal) {
+    isFinal = false;
+    isInvalid = false;
+    return number;
+  } else {
+    return expression + number
+  }
 }
 
   const btnNames = {
