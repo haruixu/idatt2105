@@ -35,7 +35,7 @@ button {
   font-size: 30px;
   /*width: 100px;
   height: 100px;*/
-  border-radius: 10%;
+  border-radius: 5px;
   border-color: #00bd7e;
 }
 

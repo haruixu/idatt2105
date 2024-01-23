@@ -11,8 +11,11 @@
 <style scoped>
 
 .container {
-  min-width: 400px;
+  min-height: 30vh;
+  max-height: 35vh;
   overflow: auto;
+  border: solid #00bd7e;
+  padding: 2px;
 }
 
 .list {
