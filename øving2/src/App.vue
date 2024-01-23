@@ -4,44 +4,24 @@
 </template>
 
 <style scoped>
-  .wrapper {
-    display: flex;
-    max-width: 500px;
-    justify-content: center;
-    align-content: center;
-    background-color: gray ;
-    border-radius: 2%;
-  }
-
   .calculator, .log {
+    /*Flex and width doesn't seem to affect the final layout, but keeping it to show possibility*/
     flex: 1; /*ensure both components take equal height */
     width: 100%; /*both components take 100% width of the parent container */
-    border-radius: 5%;
+    border-radius: 3%;
+    max-width: 300px;
   }
-
-  .log {
-    min-height: 30vh;
-    max-height: 38vh;
-    overflow: auto;
-    border: #00bd7e;
-    border-style: solid;
-    padding: 2px;
-  }
-
 </style>
 
 <script setup lang="ts">
-//todo make log go to bottom at phone
   import Calculator from '@/components/Calculator.vue';
   import Log from '@/components/Log.vue'
   import { ref } from 'vue'
 
   const log = ref([] as string[]);
-
   const addToLog = (expression: string) => {
     log.value.unshift(expression);
   };
-
 </script>
 
 <!--
