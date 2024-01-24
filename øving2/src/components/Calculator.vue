@@ -1,7 +1,8 @@
 <template>
   <div class="calculator">
     <div class="display">
-      <p>{{ displayVal }}</p>
+      <p v-if="!hasError">{{ displayVal }}</p>
+      <p v-else>{{ error }}</p>
     </div>
     <div class="buttons">
       <button v-for="(name, id) in btnNames" :key="id" :class='id' @click="calculate(name)">
@@ -90,29 +91,31 @@ const emit = defineEmits<{
   calculate: [expression: string]
 }>()
 
+const displayVal = ref("");
+const hasError = ref(false);
+const error = ref("")
+
 let storedVal = "";
-let displayVal = ref("  ");
 let isFinal = false;
-let isInvalid = false;
 
 function calculate(value: string) {
   switch (value) {
-    case 'C': displayVal.value = "";
+    case 'C': hasError.value = false; displayVal.value = "";
       break;
-    case 'ANS': displayVal.value = useAnswer(displayVal.value)
+    case 'ANS': useAnswer(displayVal.value)
     break;
-    case 'DEL': displayVal.value = displayVal.value.slice(0, -1);
+    case 'DEL': hasError.value = false; displayVal.value = displayVal.value.slice(0, -1);
     break;
     case '=':
-      displayVal.value = evaluateExpression(displayVal.value);
+      evaluateExpression(displayVal.value);
       break;
     case '+':
     case '-':
     case '/':
     case '*':
-      displayVal.value = useOperator(value, displayVal.value);
+      useOperator(value, displayVal.value);
       break;
-    default: displayVal.value = useNumber(value, displayVal.value);
+    default: useNumber(value, displayVal.value);
   }
 }
 
@@ -122,29 +125,34 @@ function evaluateExpression(expression: string) {
   try {
 
     if (hasDividedByZero(expression)) {
-      isInvalid = true;
+      hasError.value = true;
       isFinal = true;
-      return "Cannot divide by zero";
+      error.value = "Cannot divide by zero";
+      displayVal.value = "";
     }
 
-    if (expression.includes("//") || expression.includes("**")) {
-      isInvalid = true;
+    else if (expression.includes("//") || expression.includes("**")) {
+      hasError.value = true;
       isFinal = true;
-      return "Invalid expression"
+      error.value = "Invalid expression"
+      displayVal.value = "";
     }
 
-    let result = eval(expression).toString();
-    storedVal = result;
-    emit('calculate', expression + " = " + result)
-    console.log("result:" + result + ":" + result.length)
-    isFinal = true;
-    return result;
+    else {
+      let result = eval(expression).toString();
+      storedVal = result;
+      emit('calculate', expression + " = " + result)
+      console.log("result:" + result + ":" + result.length)
+      isFinal = true;
+      displayVal.value = result;
+    }
 
   } catch(Error) {
     console.log(Error); //todo remove
     isFinal = true;
-    isInvalid = true;
-    return "Invalid expression"
+    hasError.value = true;
+    error.value = "Invalid expression"
+    displayVal.value = "";
   }
 }
 function hasDividedByZero(expression: string) {
@@ -156,41 +164,40 @@ function useAnswer(expression: string) {
   let lastChar = expression.charAt(expression.length -1);
 
   if (storedVal === "") {//Keep the same expression if there is no saved answer
-    return expression;
+    displayVal.value = expression;
   }
 
-  if (expression === "") {//Add storedVal if there is no expression
-    return storedVal;
+  else if (expression === "") {//Add storedVal if there is no expression (either error or start)
+    hasError.value = false;
+    displayVal.value = storedVal;
   }
 
-  if (operands.includes(lastChar)) { //if last character is operand add storedVal to the string
-    return expression + storedVal;
+  else if (operands.includes(lastChar)) { //if last character is operand add storedVal to the string
+    displayVal.value = expression + storedVal;
   }
 
-  if (isInvalid) {//if was invalid, delete "Invalid expression" string and use storedVal
-    isInvalid = false;
-    return storedVal
-  }
-
-  return expression + "*" + storedVal; //Multiply if no operator
+  else {
+    displayVal.value = expression + "*" + storedVal;
+  }//Multiply if no operator
 }
 
 function useOperator(operator: string, expression: string) {
-  if (isInvalid) {
-    isInvalid = false;
-    return "";
+  if (hasError.value) {
+    hasError.value = false;
+    displayVal.value = "";
+  } else {
+    isFinal = false;
+    displayVal.value = expression + operator;
   }
-  isFinal = false;
-  return expression + operator;
 }
 
 function useNumber(number: string, expression: string) {
   if (isFinal) {
     isFinal = false;
-    isInvalid = false;
-    return number;
+    hasError.value = false;
+    displayVal.value = number;
   } else {
-    return expression + number
+    displayVal.value = expression + number
   }
 }
 
