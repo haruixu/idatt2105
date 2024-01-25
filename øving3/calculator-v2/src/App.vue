@@ -1,27 +1,53 @@
 <template>
-  <Calculator class="calculator" @calculate="addToLog"/>
-  <Log class="log" :equation-log="log" />
+    <nav>
+      <RouterLink to="/calculator">Calculator</RouterLink>
+      <RouterLink to="/registration">Forms</RouterLink>
+    </nav>
+    <RouterView />
 </template>
 
 <style scoped>
-.calculator, .log {
-  /*Flex and width doesn't seem to affect the final layout, but keeping it to show possibility*/
-  flex: 1; /*ensure both components take equal height */
-  width: 100%; /*both components take 100% width of the parent container */
-  border-radius: 3%;
-  max-width: 300px;
+template {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 0; /* Add padding for better appearance */
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
+nav a.router-link-exact-active {
+  font-weight: bold; /* Highlight the active link */
+}
+
+@media (max-width: 600px) {
+  nav {
+    flex-direction: row;
+    position: relative;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  nav a {
+    margin: 0.5rem; /* Reduce margin for smaller screens */
+  }
+}
+
 </style>
 
 <script setup lang="ts">
-import Calculator from '@/components/Calculator.vue';
-import Log from '@/components/Log.vue'
-import { ref } from 'vue'
-
-const log = ref([] as string[]);
-const addToLog = (expression: string) => {
-  log.value.unshift(expression);
-};
+  import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <!--
