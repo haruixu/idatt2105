@@ -7,15 +7,8 @@
 </template>
 
 <style scoped>
-template {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
 
-nav {
+/*nav {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24,11 +17,11 @@ nav {
   top: 0;
   left: 0;
   right: 0;
-  padding: 1rem 0; /* Add padding for better appearance */
-  z-index: 1000; /* Ensure it's on top of other elements */
+  padding: 1rem 0; // Add padding for better appearance
+  z-index: 1000; // Ensure it's on top of other elements
 }
 nav a.router-link-exact-active {
-  font-weight: bold; /* Highlight the active link */
+  font-weight: bold; // Highlight the active link
 }
 
 @media (max-width: 600px) {
@@ -40,9 +33,9 @@ nav a.router-link-exact-active {
   }
 
   nav a {
-    margin: 0.5rem; /* Reduce margin for smaller screens */
+    margin: 0.5rem; // Reduce margin for smaller screens
   }
-}
+}*/
 
 </style>
 

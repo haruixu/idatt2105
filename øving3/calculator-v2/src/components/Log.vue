@@ -26,7 +26,7 @@
 
 
 <script setup lang="ts">
-const props = defineProps({
+  defineProps({
   equationLog: {
     type: Array as () => string[],
     required: true

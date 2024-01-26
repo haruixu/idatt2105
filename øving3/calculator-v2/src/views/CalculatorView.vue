@@ -1,9 +1,22 @@
 <template>
-  <Calculator class="calculator" @calculate="addToLog"/>
-  <Log class="log" :equation-log="log" />
+  <div class="wrapper">
+    <Calculator class="calculator" @calculate="addToLog"/>
+    <Log class="log" :equation-log="log" />
+  </div>
+
 </template>
 
 <style scoped>
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 10vh;
+}
+
 .calculator, .log {
   /*Flex and width doesn't seem to affect the final layout, but keeping it to show possibility*/
   flex: 1; /*ensure both components take equal height */

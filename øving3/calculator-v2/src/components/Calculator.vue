@@ -91,6 +91,12 @@ const emit = defineEmits<{
   calculate: [expression: string]
 }>()
 
+/*todo:
+   trykke = på tom expression
+   Lede med null på tom streng/etter operator - flag av noe sorts
+   Trykke flere operators/punktum etter hverandre
+*/
+
 const displayVal = ref("");
 const hasError = ref(false);
 const error = ref("")
