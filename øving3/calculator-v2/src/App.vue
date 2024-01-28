@@ -2,12 +2,19 @@
     <nav>
       <RouterLink to="/calculator">Calculator</RouterLink>
       <RouterLink to="/registration">Forms</RouterLink>
+      <RouterLink to="/">Home</RouterLink>
     </nav>
     <RouterView />
+
 </template>
 
 <style scoped>
 
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 /*nav {
   display: flex;
   flex-direction: row;

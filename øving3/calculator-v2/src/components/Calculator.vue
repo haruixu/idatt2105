@@ -61,6 +61,7 @@ button {
   min-height: 100px;
   background-color: beige;
   border-radius: 10px;
+  overflow: auto;
 }
 
 /*.delete-all { grid-area: delete-all; }
