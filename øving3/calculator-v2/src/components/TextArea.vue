@@ -28,4 +28,10 @@ const field = inject("field", props);
 .invalid {
   border-color: red;
 }
+
+textarea {
+  font-family: "Arial",serif;
+  width: 50vh;
+  height: 200px;
+}
 </style>

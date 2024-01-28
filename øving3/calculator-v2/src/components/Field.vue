@@ -49,7 +49,6 @@ provide('field', computed(() => {
 
   label, slot {
     padding-top: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
   }
-
 </style>

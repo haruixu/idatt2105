@@ -3,12 +3,19 @@
       <RouterLink to="/calculator">Calculator</RouterLink>
       <RouterLink to="/forms">Forms</RouterLink>
       <RouterLink to="/">Home</RouterLink>
+      <button
+        id="homeBtn">Click me</button>
     </nav>
     <RouterView />
 
 </template>
 
 <style scoped>
+
+#homeBtn {
+  position: absolute;
+  left: 10px;
+}
 
 nav {
   display: flex;
