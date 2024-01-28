@@ -18,6 +18,8 @@
   display: flex;
   flex-direction: column;
   width:100%;
+  border: solid black;
+  margin-bottom: 2px;
 }
 
 .buttons {
@@ -28,7 +30,6 @@
     'four five six multiply'
     'seven eight nine divide'
     'zero zero point equals';
-  min-width: 300px;
   padding: 0.2rem;
 }
 
@@ -40,7 +41,6 @@ button {
   border-color: #00bd7e;
 }
 
-
 .delete-all, .answer, .delete {
   background-color: gray;
 }
@@ -51,7 +51,7 @@ button {
 
 /* Apply grid areas to buttons */
 .display {
-  font-size: 40px;
+  font-size: 30px;
   color: black;
   grid-area: display;
   text-align: right;
@@ -62,6 +62,7 @@ button {
   background-color: beige;
   border-radius: 10px;
   overflow: auto;
+  border: solid black;
 }
 
 /*.delete-all { grid-area: delete-all; }
