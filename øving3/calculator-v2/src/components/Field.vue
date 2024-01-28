@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ref, provide, computed } from 'vue'
+import { provide, computed } from 'vue'
 import Label from '@/components/Label.vue';
 import ErrorMessage from '@/components/ErrorMessage.vue';
 import HelperMessage from '@/components/HelperMessage.vue';
@@ -10,21 +10,21 @@ const props = defineProps({
   id: String,
   label: String,
   required: Boolean,
-  error: String,
+  hasError: String,
+  errorMsg: String,
   help: String,
 });
 
 provide('field', computed(() => {
   return {
     ...props,
-    invalid: !!props.error
+    invalid: props.hasError
   }
 }));
 
 </script>
 
 <template>
-  <div class="container">
 
     <Label
         :for="props.id"
@@ -35,18 +35,21 @@ provide('field', computed(() => {
     <slot />
 
     <ErrorMessage
-        v-if="props.error">
-      {{ props.error }}
+        v-if="props.hasError">
+      {{ props.errorMsg }}
     </ErrorMessage>
 
     <HelperMessage
         v-if="props.help">
       {{ props.help }}
     </HelperMessage>
-
-  </div>
 </template>
 
 <style scoped>
+
+  label, slot {
+    padding-top: 20px;
+    margin-top: 10px;
+  }
 
 </style>
