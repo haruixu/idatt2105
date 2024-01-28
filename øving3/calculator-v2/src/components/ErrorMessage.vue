@@ -8,4 +8,10 @@
   .errorMsg {
     color: red;
   }
+
+  p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+  }
 </style>

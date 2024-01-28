@@ -22,5 +22,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-
+  .star {
+    color: red;
+  }
 </style>
