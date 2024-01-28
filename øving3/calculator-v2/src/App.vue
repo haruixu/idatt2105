@@ -2,9 +2,7 @@
     <nav>
       <RouterLink to="/calculator">Calculator</RouterLink>
       <RouterLink to="/forms">Forms</RouterLink>
-      <RouterLink to="/">Home</RouterLink>
-      <button
-        id="homeBtn">Click me</button>
+      <button id="homeBtn" @click="switchHome">Home</button>
     </nav>
     <RouterView />
 
@@ -19,9 +17,20 @@
 
 nav {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 5px;
 }
+
+nav a.router-link-exact-active {
+  font-weight: bold;
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+
 /*nav {
   display: flex;
   flex-direction: row;
@@ -55,6 +64,12 @@ nav a.router-link-exact-active {
 
 <script setup lang="ts">
   import { RouterLink, RouterView } from 'vue-router'
+  import router from '@/router';
+
+  const switchHome = () => {
+    router.push("/");
+  }
+
 </script>
 
 <!--
