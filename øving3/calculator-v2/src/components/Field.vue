@@ -10,7 +10,7 @@ const props = defineProps({
   id: String,
   label: String,
   required: Boolean,
-  hasError: String,
+  hasError: Boolean,
   errorMsg: String,
   help: String,
 });

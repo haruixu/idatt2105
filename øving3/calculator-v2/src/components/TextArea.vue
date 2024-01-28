@@ -29,6 +29,14 @@ const field = inject("field", props);
   border-color: red;
 }
 
+@media (max-width: 480px){
+  textarea {
+    font-family: "Arial",serif;
+    width: 10vh;
+    height: 200px;
+  }
+}
+
 textarea {
   font-family: "Arial",serif;
   width: 50vh;
