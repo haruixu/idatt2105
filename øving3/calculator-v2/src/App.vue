@@ -1,21 +1,37 @@
 <template>
-  <nav>
-    <RouterLink to="/calculator">Calculator</RouterLink>
-    <RouterLink to="/registration">Forms</RouterLink>
-  </nav>
-  <RouterView />
+    <nav>
+      <RouterLink to="/calculator">Calculator</RouterLink>
+      <RouterLink to="/forms">Forms</RouterLink>
+      <button id="homeBtn" @click="switchHome">Home</button>
+    </nav>
+    <RouterView />
+
 </template>
 
 <style scoped>
-template {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+
+#homeBtn {
+  position: absolute;
+  left: 10px;
 }
 
 nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 5px;
+}
+
+nav a.router-link-exact-active {
+  font-weight: bold;
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+
+/*nav {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24,11 +40,11 @@ nav {
   top: 0;
   left: 0;
   right: 0;
-  padding: 1rem 0; /* Add padding for better appearance */
-  z-index: 1000; /* Ensure it's on top of other elements */
+  padding: 1rem 0; // Add padding for better appearance
+  z-index: 1000; // Ensure it's on top of other elements
 }
 nav a.router-link-exact-active {
-  font-weight: bold; /* Highlight the active link */
+  font-weight: bold; // Highlight the active link
 }
 
 @media (max-width: 600px) {
@@ -40,13 +56,20 @@ nav a.router-link-exact-active {
   }
 
   nav a {
-    margin: 0.5rem; /* Reduce margin for smaller screens */
+    margin: 0.5rem; // Reduce margin for smaller screens
   }
-}
+}*/
+
 </style>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+  import { RouterLink, RouterView } from 'vue-router'
+  import router from '@/router';
+
+  const switchHome = () => {
+    router.push("/");
+  }
+
 </script>
 
 <!--
