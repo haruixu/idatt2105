@@ -1,9 +1,9 @@
 <template>
-    <nav>
-      <RouterLink to="/calculator">Calculator</RouterLink>
-      <RouterLink to="/registration">Forms</RouterLink>
-    </nav>
-    <RouterView />
+  <nav>
+    <RouterLink to="/calculator">Calculator</RouterLink>
+    <RouterLink to="/registration">Forms</RouterLink>
+  </nav>
+  <RouterView />
 </template>
 
 <style scoped>
@@ -43,11 +43,10 @@ nav a.router-link-exact-active {
     margin: 0.5rem; /* Reduce margin for smaller screens */
   }
 }
-
 </style>
 
 <script setup lang="ts">
-  import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <!--
