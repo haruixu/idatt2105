@@ -5,7 +5,7 @@
       <p v-else>{{ error }}</p>
     </div>
     <div class="buttons">
-      <button v-for="(name, id) in btnNames" :key="id" :class='id' @click="calculate(name)">
+      <button v-for="(name, id) in btnNames" :key="id" :class='id' @click="clickBtn(name)">
         {{ name }}
       </button>
     </div>
@@ -93,20 +93,16 @@ const emit = defineEmits<{
   calculate: [expression: string]
 }>()
 
-/*todo:
-   trykke = på tom expression
-   Lede med null på tom streng/etter operator - flag av noe sorts
-   Trykke flere operators/punktum etter hverandre
-*/
-
 const displayVal = ref("");
 const hasError = ref(false);
 const error = ref("")
+const operands = ['+', '-', '*', '/'];
 
 let storedVal = "";
 let isFinal = false;
 
-function calculate(value: string) {
+//todo burde ha en felles reset-func + la usenumber være baseline (og rename) siden den gjenbrukes så ofte
+function clickBtn(value: string) {
   switch (value) {
     case 'C': hasError.value = false; displayVal.value = "";
       break;
@@ -114,6 +110,8 @@ function calculate(value: string) {
       break;
     case 'DEL': hasError.value = false; displayVal.value = displayVal.value.slice(0, -1);
       break;
+    case '.': useDot(displayVal.value);
+        break;
     case '=':
       evaluateExpression(displayVal.value);
       break;
@@ -123,6 +121,8 @@ function calculate(value: string) {
     case '*':
       useOperator(value, displayVal.value);
       break;
+    case '0': useZero(displayVal.value);
+      break;
     default: useNumber(value, displayVal.value);
   }
 }
@@ -130,19 +130,16 @@ function calculate(value: string) {
 function evaluateExpression(expression: string) {
   console.log("expression:" + expression + ":" + expression.length)
 
+  if (expression === "") {
+    return
+  }
+
   try {
 
     if (hasDividedByZero(expression)) {
       hasError.value = true;
       isFinal = true;
       error.value = "Cannot divide by zero";
-      displayVal.value = "";
-    }
-
-    else if (expression.includes("//") || expression.includes("**")) {
-      hasError.value = true;
-      isFinal = true;
-      error.value = "Invalid expression"
       displayVal.value = "";
     }
 
@@ -167,16 +164,17 @@ function hasDividedByZero(expression: string) {
   return expression.indexOf("/0") !== -1
 }
 
+//todo bugfixing med isFinal = true og du trykker answer, så resetters ikke isFinal ,dermed blir answer cleared med et tall som faktisk setter isfainal = false
 function useAnswer(expression: string) {
-  let operands = ['+', '-', '*', '/'];
   let lastChar = expression.charAt(expression.length -1);
 
   if (storedVal === "") {//Keep the same expression if there is no saved answer
-    displayVal.value = expression;
+    return
   }
 
-  else if (expression === "") {//Add storedVal if there is no expression (either error or start)
+  if (expression === "") {//Add storedVal if there is no expression (either error or start)
     hasError.value = false;
+    isFinal = false;
     displayVal.value = storedVal;
   }
 
@@ -186,10 +184,13 @@ function useAnswer(expression: string) {
 
   else {
     displayVal.value = expression + "*" + storedVal;
-  }//Multiply if no operator
+  }
 }
 
 function useOperator(operator: string, expression: string) {
+  if (expression.length === 0) return;
+  if (operands.includes(expression.charAt(expression.length - 1))) return;
+
   if (hasError.value) {
     hasError.value = false;
     displayVal.value = "";
@@ -207,6 +208,25 @@ function useNumber(number: string, expression: string) {
   } else {
     displayVal.value = expression + number
   }
+}
+
+function useDot(expression: string) {
+  if (displayVal.value.endsWith('.')) {
+    return;
+  }
+
+  useNumber('.', expression)
+}
+
+function useZero(expression: string) {
+  //If
+  if (expression.length === 1) {
+    if (expression === "0") return
+  }
+
+  if (operands.includes(expression.charAt(expression.length -2))) return;
+
+  useNumber('0', expression)
 }
 
 const btnNames = {
