@@ -6,5 +6,8 @@ ___
 Idatt2105 serves as a introductory course for web application development. Topics covered include, but are not limited to:
 - HTML, CSS and JS
 - Frameworks (some examples include REST, vue and springboot)
+- Async calls
+- End-to-end testing
 
-<details>Summary</details>
+<details>Summary test test 
+test</details>

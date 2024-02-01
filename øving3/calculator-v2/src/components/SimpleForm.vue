@@ -4,9 +4,7 @@ import Input from '@/components/Input.vue';
 import Field from "@/components/Field.vue";
 import TextArea from "@/components/TextArea.vue";
 
-import { useUserStore } from "../stores/userstore";
 import axios from 'axios';
-import router from '@/router'
 
 const form = ref({
   name: "",
@@ -14,9 +12,10 @@ const form = ref({
   message: ""
 })
 
+const emit = defineEmits(['submitted']);
+
 //todo passe inn en egen fuksjoin fra parent til button, som bare emitter all verdiene
 //todo ta imot disse i formsview og passe inn verdiene inn i store
-
 const errors = ref({
   name: "Name cannot be empty",
   email: "Email is invalid",
@@ -39,22 +38,9 @@ const validateEmail = (email: string) => {
       );
 };
 
-const userStore = useUserStore();
-
-async function submit() {
-  userStore.addForm(form.value.name, form.value.email);
-  form.value = {
-    name: "",
-    email: "",
-    message: ""
-  }
-  const loginResponse = await axios.get("http://localhost:3000/forms");
-  alert("Login: " + loginResponse);
-  if(loginResponse.data.status == "true"){
-    router.push("/");
-  }
+function submit() {
+  emit('submitted', form)
 }
-
 
 </script>
 
@@ -124,6 +110,16 @@ form {
   display: flex;
   flex-direction: column;
   align-items: baseline;
+}
+
+@media (max-width: 481px) {
+  Input, TextArea {
+    max-width: 100px;
+  }
+
+  TextArea {
+    max-width: 200px;
+  }
 }
 
 Field {
