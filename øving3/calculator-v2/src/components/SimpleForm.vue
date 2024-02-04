@@ -24,10 +24,10 @@ const errors = ref({
 
 //Read only properties to bind invalid state to (error)
 const isNameEmpty = computed(() => form.value.name === '');
-const isEmailInValid = computed(() => validateEmail(form.value.email) === null);
+const isEmailInvalid = computed(() => validateEmail(form.value.email) === null);
 const isMsgEmpty = computed(() => form.value.message === '');
 const isInvalid = computed(() => isNameEmpty.value
-    || isEmailInValid.value
+    || isEmailInvalid.value
     || isMsgEmpty.value)
 
 const validateEmail = (email: string) => {
@@ -68,7 +68,7 @@ function submit() {
         id="email-field"
         label="Email"
         required
-        :hasError="isEmailInValid"
+        :hasError="isEmailInvalid"
         :error-msg="errors.email"
     >
 
