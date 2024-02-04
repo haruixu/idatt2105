@@ -14,7 +14,7 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "mockapi": "json-server -w data/dummydata.json",
+    "mockapi": "json-server -w data/submissions.json",
     "test:coverage": "vitest run --coverage --environment jsdom"
   },
   "dependencies": {
