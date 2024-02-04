@@ -14,8 +14,6 @@ const form = ref({
 
 const emit = defineEmits(['submitted']);
 
-//todo passe inn en egen fuksjoin fra parent til button, som bare emitter all verdiene
-//todo ta imot disse i formsview og passe inn verdiene inn i store
 const errors = ref({
   name: "Name cannot be empty",
   email: "Email is invalid",
@@ -46,7 +44,7 @@ function submit() {
 
 <template>
   <form
-    @submit.prevent="submit"
+    @submit.prevent="submit()"
   >
     <Field
       id="name-field"
@@ -97,7 +95,7 @@ function submit() {
     <button
         id="submitBtn"
         :disabled="isInvalid"
-        @click="submit"
+        @click="submit()"
     >Submit</button>
 
   </form>

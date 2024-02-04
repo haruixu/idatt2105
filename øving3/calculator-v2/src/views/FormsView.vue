@@ -26,29 +26,21 @@
 import SimpleForm from "@/components/SimpleForm.vue";
 import axios from "axios";
 import router from '@/router';
-import {isLoginSuccessful} from "@/utils/loginutils.js"
-import {loginRequest} from "@/utils/httputils.js"
+import {isSubmittingSuccessful} from "@/utils/loginutils.js"
+import {submissionRequest} from "@/utils/httputils.js"
+import {useUserStore} from "@/stores/userstore.ts"
 
-const submit = async (value, event) => {
-  console.log("Subitting: " + value.value.name + " " + value.value.email);
+const users = useUserStore();
 
-  let response = await loginRequest({});
-      console.log("got response login")
-      if (isLoginSuccessful(response)) {
-        //userStore.saveUserInStore(this.username);
-        console.log("sucess!")
+const submit = async (form) => {
+  console.log("Submitting: " + form.value.name + " " + form.value.email);
+  users.submitUser(form.value.name, form.value.email)
+
+  let response = await submissionRequest(users.user);
+      console.log("response: " + response.data + response.status)
+      if (isSubmittingSuccessful(response)) {
+        console.log("success!")
         router.push("/");
       }
-
-    /*axios.post('http://localhost:5173/submissions', {
-    name: value.value.name,
-    mail: value.value.email,
-  }).then(response => {
-    console.log('Response:', response.data);
-    // Handle the response data here
-  }).catch(error => {
-    console.error('Error:', error);
-    // Handle the error here
-  });*/
 }
 </script>
