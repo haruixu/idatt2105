@@ -95,6 +95,7 @@ function submit() {
     </Field>
 
     <button
+        id="submitBtn"
         :disabled="isInvalid"
         @click="submit"
     >Submit</button>
