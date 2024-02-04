@@ -74,7 +74,7 @@ describe('SimpleForm rendering', () => {
         expect(instance.form.name).toBe("Harry");
     })
 
-    it("Trigers submit function when submitting", async () => {
+    it("Triggers submit function when submitting", async () => {
         const onSubmitSpy = vi.spyOn(wrapper.vm, 'submit');
         const instance = wrapper.vm;
 
@@ -82,9 +82,14 @@ describe('SimpleForm rendering', () => {
         instance.form = { name: "name", email: "name@hotmail.com", message: "message" }
         await wrapper.vm.$nextTick();
 
+        //Validate button is enabled
         expect(wrapper.find('button').element.disabled).toBe(false)
 
-        await wrapper.find('button').trigger('click');
-        expect(onSubmitSpy).toHaveBeenCalledTimes(0);
+        await wrapper.find('#submitBtn').trigger('click');
+        expect(onSubmitSpy).toHaveBeenCalledTimes(1);
+    })
+
+    it("Emits the entire form when submitting", async () => {
+
     })
 })
