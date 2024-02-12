@@ -37,8 +37,7 @@ const submit = async (form) => {
   users.submitUser(form.value.name, form.value.email)
 
   let response = await submissionRequest(users.user);
-      console.log("response: " + response.data + response.status)
-      if (isSubmittingSuccessful(response)) {
+      if (isSubmittingSuccessful(response.status)) {
         console.log("success!")
         router.push("/");
       }

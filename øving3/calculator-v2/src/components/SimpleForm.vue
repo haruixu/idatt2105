@@ -79,7 +79,7 @@ function submit() {
     </Field>
 
     <Field
-        id="message"
+        id="message-field"
         label="Message"
         required
         :hasError="isMsgEmpty"
