@@ -8,20 +8,11 @@ public class EquationEvaluator {
    if (isDivideByZero(equation)) {
      return Double.MAX_VALUE;
    }
-
-   if (hasDoubleOperator(equation)) {
-     return Double.MIN_VALUE;
-   }
-
     Expression expression = new ExpressionBuilder(equation).build();
     return expression.evaluate();
   }
 
   private static boolean isDivideByZero(String equation) {
     return (equation.matches(".*/0.*"));
-  }
-
-  private static boolean hasDoubleOperator(String equation) {
-    return (equation.matches(".*[+\\-*/]{2}.*"));
   }
 }

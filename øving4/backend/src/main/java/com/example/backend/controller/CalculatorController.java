@@ -34,28 +34,23 @@ public class CalculatorController {
     try {
       Calculation calculation = new Calculation(equation);
 
-      if (calculation.getAnswer() != Double.MAX_VALUE && calculation.getAnswer() != Double.MIN_VALUE ) {
-        //Shit id-giving, men jaja
-        calculation.setId(calculations.size());
-        calculations.add(calculation);
-
-        logger.info(calculation.getEquation() + "=" + calculation.getAnswer());
-        hashMap.put("status", 0);
-        hashMap.put("calculation", calculation);
-        return new ResponseEntity<>(hashMap, HttpStatus.OK);
-      }
-
-      logger.info("Invalid equation: " + equation);
-      hashMap.put("status", 1);
       if (calculation.getAnswer() == Double.MAX_VALUE) {
+        logger.info("Invalid equation: " + equation);
+        hashMap.put("status", 1);
         hashMap.put("context", "Cannot divide by zero");
-      } else {
-        hashMap.put("context", "Cannot use two operators after each other");
+        return new ResponseEntity<>(hashMap, HttpStatus.BAD_REQUEST);
       }
-      return new ResponseEntity<>(hashMap, HttpStatus.BAD_REQUEST);
+
+      //Shit id-giving, men jaja
+      calculation.setId(calculations.size());
+      calculations.add(calculation);
+
+      logger.info(calculation.getEquation() + "=" + calculation.getAnswer());
+      hashMap.put("status", 0);
+      hashMap.put("calculation", calculation);
+      return new ResponseEntity<>(hashMap, HttpStatus.OK);
 
     } catch(Exception e) {
-      System.out.println(e);
       logger.info("Invalid equation: " + equation);
       hashMap.put("status", 1);
       hashMap.put("context", "Invalid equation");
