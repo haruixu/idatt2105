@@ -14,7 +14,6 @@ public class EquationEvaluator {
    }
 
     Expression expression = new ExpressionBuilder(equation).build();
-    System.out.println("Built expression");
     return expression.evaluate();
   }
 

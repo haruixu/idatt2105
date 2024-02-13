@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,16 +22,16 @@ public class CalculatorController {
   //todo get logger into this shit
   /**
    * Takes in an input equation and returns the answer - query param for now is required
-   * @param equation
-   * @return
+   * @param equation yes
+   * @return yes
    */
+  @CrossOrigin
   @GetMapping("/calculate")
   public ResponseEntity<HashMap<String, Object>> calculate(
       @RequestParam(value="eq") String equation) {
 
     HashMap<String, Object> hashMap = new HashMap<>();
     try {
-      System.out.println("equation: " + equation);
       Calculation calculation = new Calculation(equation);
 
       if (calculation.getAnswer() != Double.MAX_VALUE && calculation.getAnswer() != Double.MIN_VALUE ) {
@@ -58,7 +59,7 @@ public class CalculatorController {
       logger.info("Invalid equation: " + equation);
       hashMap.put("status", 1);
       hashMap.put("context", "Invalid equation");
-      return new ResponseEntity<>(hashMap, HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(hashMap, HttpStatus.BAD_REQUEST);
     }
   }
 }
