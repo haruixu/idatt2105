@@ -1,7 +1,6 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Calculation;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -53,8 +52,8 @@ public class CalculatorController {
       calculations.add(calculation);
 
       logger.info(calculation.getEquation() + "=" + calculation.getAnswer());
-      hashMap.put("Status", 0);
-      hashMap.put("Calculation", calculation);
+      hashMap.put("status", 0);
+      hashMap.put("calculation", calculation);
       return new ResponseEntity<>(hashMap, HttpStatus.OK);
 
     } catch(Exception e) {
