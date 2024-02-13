@@ -33,28 +33,25 @@ public class CalculatorController {
       System.out.println("equation: " + equation);
       Calculation calculation = new Calculation(equation);
 
+      if (calculation.getAnswer() != Double.MAX_VALUE && calculation.getAnswer() != Double.MIN_VALUE ) {
+        //Shit id-giving, men jaja
+        calculation.setId(calculations.size());
+        calculations.add(calculation);
+
+        logger.info(calculation.getEquation() + "=" + calculation.getAnswer());
+        hashMap.put("status", 0);
+        hashMap.put("calculation", calculation);
+        return new ResponseEntity<>(hashMap, HttpStatus.OK);
+      }
+
+      logger.info("Invalid equation: " + equation);
+      hashMap.put("status", 1);
       if (calculation.getAnswer() == Double.MAX_VALUE) {
-        logger.info("Invalid equation: " + equation);
-        hashMap.put("status", 1);
         hashMap.put("context", "Cannot divide by zero");
-        return new ResponseEntity<>(hashMap, HttpStatus.BAD_REQUEST);
-      }
-
-      if (calculation.getAnswer() == Double.MIN_VALUE) {
-        logger.info("Invalid equation: " + equation);
-        hashMap.put("status", 1);
+      } else {
         hashMap.put("context", "Cannot use two operators after each other");
-        return new ResponseEntity<>(hashMap, HttpStatus.BAD_REQUEST);
       }
-
-      //Shit id-giving, men jaja
-      calculation.setId(calculations.size());
-      calculations.add(calculation);
-
-      logger.info(calculation.getEquation() + "=" + calculation.getAnswer());
-      hashMap.put("status", 0);
-      hashMap.put("calculation", calculation);
-      return new ResponseEntity<>(hashMap, HttpStatus.OK);
+      return new ResponseEntity<>(hashMap, HttpStatus.BAD_REQUEST);
 
     } catch(Exception e) {
       System.out.println(e);
