@@ -83,11 +83,6 @@ const operands = ['+', '-', '*', '/'];
 let storedVal = "";
 let isFinal = false;
 
-//1. calculate method on "=" that calls upon httputils
-//2. Display the return value of httpulimethod
-//3. Emit event with calc expression + calc answer
-
-
 async function clickBtn(value: string) {
   switch (value) {
     case 'C':
@@ -123,20 +118,22 @@ async function clickBtn(value: string) {
 
 //todo burde denne ha vært i calculatorview i stedet for?
 async function evaluateExpression(expression: string) {
-  let response = await calculationRequest(expression);
-  let data = response.data;
+  try {
+    let response = await calculationRequest(expression);
+    let data = response.data;
 
-  if (data.status === 0) {
     let result = data.calculation.answer;
     storedVal = result;
     emit('calculate', expression + " = " + result)
     isFinal = true;
     return result;
+
+  } catch (e) {
+    isFinal = true;
+    hasError.value = true;
+    error.value = e.response.data.context;
+    return "";
   }
-  isFinal = true;
-  hasError.value = true;
-  error.value = response.data.context;
-  return "";
 }
 
 
