@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,7 @@ public class CalculatorController {
    * @return yes
    */
   @CrossOrigin
-  @GetMapping("/calculate")
+  @PostMapping("/calculate") //post fordi du sender data
   public ResponseEntity<HashMap<String, Object>> calculate(
       @RequestParam(value="eq") String equation) {
 

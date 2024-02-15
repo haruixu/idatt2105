@@ -1,4 +1,7 @@
 package com.example.backend.model;
+
+import com.example.backend.service.EquationEvaluator;
+
 public class Calculation {
 
   public int id;

@@ -1,4 +1,4 @@
-package com.example.backend.model;
+package com.example.backend.service;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
