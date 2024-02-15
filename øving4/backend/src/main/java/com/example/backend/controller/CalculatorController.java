@@ -27,7 +27,7 @@ public class CalculatorController {
    * @return yes
    */
   @CrossOrigin
-  @PostMapping("/calculate") //post fordi du sender data
+  @GetMapping("/calculate") //post hvis du sender data
   public ResponseEntity<HashMap<String, Object>> calculate(
       @RequestParam(value="eq") String equation) {
 
