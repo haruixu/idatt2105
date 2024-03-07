@@ -1,4 +1,4 @@
-package idatt2105.oving5.backend.model.repository;
+package idatt2105.oving5.backend.repository;
 
 import idatt2105.oving5.backend.model.User;
 import java.util.Optional;
