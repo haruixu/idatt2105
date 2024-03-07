@@ -5,22 +5,29 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "USERS")
+@Entity(name = "User")
 public class User {
 
   @Id
-  @Column(name="USERNAME")
+  @Column(name="username")
   private String username;
 
   private String password;
 
+  public User(String username, String password) {
+    this.username = username;
+    this.password = password;
+    equations = new ArrayList<>();
+  }
+  public User() {
+
+  }
+
   @OneToMany(mappedBy = "USERNAME", cascade = CascadeType.ALL)
-  private List<Equation> equations = new ArrayList<>();
+  private List<Equation> equations;
 
   public void addEquation(Equation equation) {
     equations.add(equation);

@@ -3,20 +3,27 @@ package idatt2105.oving5.backend.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 // fixme - rename table
-@Entity
-@Table(name = "REQUATIONS")
+@Entity(name = "Equation")
 public class Equation {
 
  @Id
  @GeneratedValue
  private Long id;
 
- private String lhs;
+ private String expression;
 
  private double answer;
+
+ public Equation(String expression, double answer) {
+   this.expression = expression;
+   this.answer = answer;
+ }
+
+ public Equation() {
+
+ }
 
   public Long getId() {
     return id;
@@ -26,12 +33,12 @@ public class Equation {
     this.id = id;
   }
 
-  public String getLhs() {
-    return lhs;
+  public String getExpression() {
+    return expression;
   }
 
-  public void setLhs(String lhs) {
-    this.lhs = lhs;
+  public void setExpression(String lhs) {
+    this.expression = lhs;
   }
 
   public double getAnswer() {
