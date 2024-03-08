@@ -3,9 +3,10 @@ package idatt2105.oving5.backend.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import java.util.Objects;
 
 // fixme - rename table
-@Entity(name = "Equation")
+@Entity(name = "Equations")
 public class Equation {
 
  @Id
@@ -47,5 +48,31 @@ public class Equation {
 
   public void setAnswer(double answer) {
     this.answer = answer;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Equation equation)) {
+      return false;
+    }
+    return Double.compare(equation.getAnswer(), getAnswer()) == 0 && getExpression().equals(
+        equation.getExpression());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getExpression(), getAnswer());
+  }
+
+  @Override
+  public String toString() {
+    return "Equation{" +
+        "id=" + id +
+        ", expression='" + expression + '\'' +
+        ", answer=" + answer +
+        '}';
   }
 }
