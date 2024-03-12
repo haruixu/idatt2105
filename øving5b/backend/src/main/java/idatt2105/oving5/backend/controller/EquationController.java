@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,14 +43,10 @@ public class EquationController {
   }
 
   @PostMapping("/calculate")
-  public ResponseEntity<?> calculate(@RequestBody Equation equation, @RequestParam() Long user_id) {
+  public ResponseEntity<?> calculate(@RequestBody @NonNull Equation equation, @RequestParam() Long user_id) {
     logger.info("Received post request for: " + equation);
-    if (equation == null) {
-      logger.severe("Received null-equation");
-      return ResponseEntity.badRequest().build();
-    }
 
-    Optional<User> user = userService.findUserById(user_id);
+      Optional<User> user = userService.findUserById(user_id);
 
     if (user.isPresent()) {
       User _user = user.get();

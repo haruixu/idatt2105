@@ -5,6 +5,7 @@ import idatt2105.oving5.backend.model.User;
 import idatt2105.oving5.backend.repository.UserRepository;
 import java.net.URI;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class UserService {
   }
   public Optional<User> findUserById(long id) {
     return userRepository.findById(id);
+  }
+
+  public List<User> findAllUsers() {
+    return userRepository.findAll();
   }
 
   public Equation saveUserWithEquation(User user, Equation equation) {
