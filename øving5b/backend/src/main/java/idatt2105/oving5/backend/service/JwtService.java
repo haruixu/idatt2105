@@ -19,7 +19,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private static final Duration EXPIRATION_TIME = Duration.ofMinutes(5);
-    private SecretKey Key;
+    private final SecretKey Key;
     public JwtService() {
         String SECRET_KEY = "87EF7185F1C9A5053F5D0B25CCDF039FA3DEF82C0504ACDC9110FC444237BC57";
         byte[] keyBytes = Base64.getDecoder().decode(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
