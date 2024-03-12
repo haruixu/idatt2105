@@ -1,14 +1,33 @@
 <template>
   <h1>
-    This is login
+    This is login view
   </h1>
-  <SimpleForm></SimpleForm>
+  <LoginForm
+    :invalid-credentials="isFailedLogin"
+    @login="login"
+  ></LoginForm>
 </template>
 
 <style scoped>
 </style>
 
 <script setup lang="ts">
-import SimpleForm from '@/components/SimpleForm.vue'
+import LoginForm from '@/components/LoginForm.vue'
+import { ref } from 'vue'
+import { loginRequest } from '@/utils/httputils'
+import { isLoginSuccessful } from '@/utils/loginutils'
+import router from '@/router'
+
+const isFailedLogin = ref(false)
+async function login(loginForm) {
+
+  let response = await loginRequest(loginForm)
+  if (isLoginSuccessful(response)) {
+    router.push("/calculator")
+  }
+  else {
+    isFailedLogin.value = true;
+  }
+}
 </script>
 

@@ -19,7 +19,26 @@ export const calculationRequest = (calculation) => {
         },
         headers: {
             "Content-type": "application/json",
+            // TODO: "Bearer token: "token"
         },
     };
     return axios.get(baseurl + "/calculate", config)
+}
+
+export const loginRequest = (loginForm) => {
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+            // TODO: "Bearer token: "token"
+        },
+    };
+    return axios.post(baseurl + "/login", loginForm, config)
+}
+export const signupRequest = (signupForm) => {
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+        },
+    };
+    return axios.post(baseurl + "/signup", signupForm, config)
 }
