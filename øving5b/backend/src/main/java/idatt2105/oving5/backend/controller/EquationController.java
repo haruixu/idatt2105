@@ -29,18 +29,18 @@ public class EquationController {
     this.equationService = equationService;
   }
 
-  @GetMapping("/users/{id}")
-  public ResponseEntity<?> getEquationsForUser(@PathVariable("id") Long id) {
-    logger.info("Received equation request for user: " + id);
-    Optional<User> user = userService.findUserById(id);
+  //@GetMapping("/calculations")
+  //public ResponseEntity<?> getEquations(request) {
+  //  logger.info("Received equation request for user: " + id);
+  //  Optional<User> user = userService.findUserByUsername(username);
 
-    // todo paginate response
-    if (user.isPresent()) {
-      return ResponseEntity.ok(user.get().getEquations());
-    } else {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-  }
+  //  // todo paginate response
+  //  if (user.isPresent()) {
+  //    return ResponseEntity.ok(user.get().getEquations());
+  //  } else {
+  //    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  //  }
+  //}
 
   @PostMapping("/calculate")
   public ResponseEntity<?> calculate(@RequestBody @NonNull Equation equation, @RequestParam() Long user_id) {
