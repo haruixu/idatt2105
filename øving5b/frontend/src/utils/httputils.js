@@ -1,7 +1,7 @@
 // contents of utils/httputils.js file
 import axios from "axios";
 
-const baseurl = "http://localhost:8888";
+const baseurl = "http://localhost:8080";
 
 export const submissionRequest = (user) => {
     const config = {
