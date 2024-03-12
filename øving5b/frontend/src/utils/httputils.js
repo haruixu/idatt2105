@@ -29,7 +29,6 @@ export const loginRequest = (loginForm) => {
     const config = {
         headers: {
             "Content-type": "application/json",
-            // TODO: "Bearer token: "token"
         },
     };
     return axios.post(baseurl + "/login", loginForm, config)
