@@ -19,8 +19,7 @@ const field = inject("field", props);
       :id="field.id"
       v-model="value"
       :required="field.required"
-      :class="field.invalid ? 'invalid' : ''">
-  </input>
+      :class="field.invalid ? 'invalid' : ''"/>
 
 </template>
 

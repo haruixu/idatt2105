@@ -40,5 +40,8 @@ const submit = async (form) => {
         console.log("success!")
         router.push("/");
       }
+      else {
+        console.log("Not wokring")
+      }
 }
 </script>
