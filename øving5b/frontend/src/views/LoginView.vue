@@ -23,11 +23,11 @@ async function login(loginForm) {
 
   let response = await loginRequest(loginForm)
   if (isLoginSuccessful(response)) {
-    router.push("/calculator")
+      await router.push("/home")
   }
   else {
-    isFailedLogin.value = true;
-  }
+      isFailedLogin.value = true;
+    }
 }
 </script>
 

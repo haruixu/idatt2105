@@ -22,7 +22,7 @@ const errorMsg = ref("")
 async function signup(loginForm) {
   let response = await signupRequest(loginForm)
   if (isLoginSuccessful(response)) {
-    await router.push("/calculator")
+      await router.push("/home")
   }
   else {
     // TODO: may need to change
