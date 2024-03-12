@@ -3,7 +3,6 @@ package idatt2105.oving5.backend.controller;
 import idatt2105.oving5.backend.model.User;
 import idatt2105.oving5.backend.service.UserService;
 
-import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
