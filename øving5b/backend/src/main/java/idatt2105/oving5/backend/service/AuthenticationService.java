@@ -1,6 +1,5 @@
 package idatt2105.oving5.backend.service;
 
-import idatt2105.oving5.backend.config.JwtService;
 import idatt2105.oving5.backend.dto.AuthenticationRequest;
 import idatt2105.oving5.backend.dto.AuthenticationResponse;
 import idatt2105.oving5.backend.dto.RegisterRequest;

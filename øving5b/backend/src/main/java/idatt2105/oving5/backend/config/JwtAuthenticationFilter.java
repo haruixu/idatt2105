@@ -1,5 +1,6 @@
 package idatt2105.oving5.backend.config;
 
+import idatt2105.oving5.backend.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

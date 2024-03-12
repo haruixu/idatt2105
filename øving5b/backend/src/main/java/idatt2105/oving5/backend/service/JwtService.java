@@ -1,4 +1,4 @@
-package idatt2105.oving5.backend.config;
+package idatt2105.oving5.backend.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
