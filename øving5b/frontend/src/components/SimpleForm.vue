@@ -4,8 +4,6 @@ import Input from '@/components/Input.vue';
 import Field from "@/components/Field.vue";
 import TextArea from "@/components/TextArea.vue";
 
-import axios from 'axios';
-
 const form = ref({
   name: "",
   email: "",
