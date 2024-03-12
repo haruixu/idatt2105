@@ -10,6 +10,7 @@ export const useTokenStore = defineStore("token", {
   actions: {
     async getTokenAndSaveInStore(username, password) {
       try{
+        // TODO: change to login or signyup
         const response = await getJwtToken(username, password);
         const data = response.data;
         if(data != null && data != '' && data != undefined){
