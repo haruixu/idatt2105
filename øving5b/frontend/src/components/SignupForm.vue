@@ -1,0 +1,62 @@
+<template>
+  <form @submit.prevent="signup">
+
+    <Field
+      id="username-field"
+      label="username"
+      required
+      :has-error="!!errorMsg.username"
+      :error-msg="errorMsg.username"
+    >
+      <Input
+        v-model=signupForm.username
+        type="text"
+        placeholder="username"
+      />
+    </Field>
+
+    <Field
+      id="password-field"
+      label="password"
+      required
+    >
+      <Input
+        v-model="signupForm.password"
+        type="password"
+        placeholder="password"
+      />
+    </Field>
+
+    <button @click="signup">
+      Sign up
+    </button>
+
+  </form>
+</template>
+
+<style scoped>
+
+</style>
+
+<script setup lang="ts">
+
+import { ref, defineProps, defineEmits} from 'vue'
+import Field from '@/components/Field.vue'
+import Input from '@/components/Input.vue'
+
+const signupForm = ref({
+  username: "",
+  password: "",
+});
+
+const errorMsg = defineProps({
+  username: String
+})
+
+const emit = defineEmits(['signup']);
+
+function signup() {
+  emit('signup', signupForm)
+}
+
+</script>
