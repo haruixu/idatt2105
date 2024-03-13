@@ -22,4 +22,9 @@ public class Equation {
     private String expression;
 
     private double answer;
+
+    public Equation(Expr expression, double answer) {
+        this.expression = expression.toString();
+        this.answer = answer;
+    }
 }

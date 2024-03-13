@@ -1,12 +1,14 @@
 package idatt2105.oving5.backend.service;
 
-import idatt2105.oving5.backend.model._Expression;
+import idatt2105.oving5.backend.model.Expr;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import org.springframework.stereotype.Service;
 
-public class ExpressionEvaluator {
+@Service
+public class ExpressionService {
 
-    public static double evaluate(_Expression expr) {
+    public double evaluate(Expr expr) {
         if (isDivideByZero(expr.getExpression())) {
             return Double.NaN;
         }
@@ -14,7 +16,7 @@ public class ExpressionEvaluator {
         return expression.evaluate();
     }
 
-    private static boolean isDivideByZero(String equation) {
+    private boolean isDivideByZero(String equation) {
         return (equation.matches(".*/0.*"));
     }
 }
