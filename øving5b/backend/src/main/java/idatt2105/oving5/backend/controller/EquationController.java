@@ -5,15 +5,15 @@ import idatt2105.oving5.backend.model.User;
 import idatt2105.oving5.backend.model.Expr;
 import idatt2105.oving5.backend.service.EquationService;
 import idatt2105.oving5.backend.service.ExpressionService;
+import idatt2105.oving5.backend.service.JwtService;
 import idatt2105.oving5.backend.service.UserService;
+
+import java.net.URI;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class EquationController {
@@ -24,55 +24,57 @@ public class EquationController {
 
   private final ExpressionService expressionService;
 
+  private final JwtService jwtService;
+
   public static final Logger logger = Logger.getLogger(EquationController.class.getName());
 
   public EquationController(UserService userService, EquationService equationService,
-      ExpressionService expressionService) {
+      ExpressionService expressionService, JwtService jwtService) {
     this.userService = userService;
     this.equationService = equationService;
     this.expressionService = expressionService;
+    this.jwtService = jwtService;
   }
 
-  //@GetMapping("/calculations")
-  //public ResponseEntity<?> getEquations(request) {
-  //  logger.info("Received equation request for user: " + id);
-  //  Optional<User> user = userService.findUserByUsername(username);
+  @GetMapping("/calculations")
+  public ResponseEntity<?> getEquations(
+          @RequestHeader("Authorization") String token) {
 
-  //  // todo paginate response
-  //  if (user.isPresent()) {
-  //    return ResponseEntity.ok(user.get().getEquations());
-  //  } else {
-  //    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-  //  }
-  //}
+    Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token));
+
+    // todo paginate response
+    if (user.isPresent()) {
+      return ResponseEntity.ok(user.get().getEquations());
+    } else {
+      return ResponseEntity.badRequest().body("Found no user with this username");
+    }
+  }
 
   @PostMapping("/calculate")
   public ResponseEntity<?> calculate(
       @RequestBody @NonNull Expr expression,
-      @RequestHeader("Authorization") String token,
-      @RequestHeader("Content-length") long length) {
+      @RequestHeader("Authorization") String token) {
 
-    logger.info("length is: " + length);
-    logger.info("token is: " + token);
-    logger.info("Received post request for: " + expression);
+    try {
+      double answer = expressionService.evaluate(expression);
+      if (Double.isNaN(answer)) {
+        return ResponseEntity.badRequest().body("Cannot divide by zero");
+      }
+      Equation equation = new Equation(expression, answer);
+      logger.info("New equstion: " + equation);
 
-    double answer = expressionService.evaluate(expression);
-
-    if (Double.isNaN(answer)) {
-      return ResponseEntity.badRequest().body("Cannot divide by zero");
-    }
-
-    Equation equation = new Equation(expression, answer);
-
-    Optional<User> user = userService.findUserByUsername("");
-
-    if (user.isPresent()) {
-      User _user = user.get();
-      Equation savedEquation = userService.saveUserWithEquation(_user, equation);
-      return ResponseEntity.created(equationService.createEquationUri(savedEquation)).body(savedEquation);
-    } else {
-      logger.severe("User does not exist");
-      return ResponseEntity.notFound().build();
+      Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token.substring(7)));
+      if (user.isPresent()) {
+        User _user = user.get();
+        //Equation savedEquation = userService.saveUserWithEquation(_user, equation);
+        return ResponseEntity.ok().build();
+      } else {
+        logger.severe("User does not exist");
+        return ResponseEntity.notFound().build();
+      }
+    } catch (Exception e) {
+      logger.severe(e.getMessage());
+      return ResponseEntity.badRequest().body("Invalid token");
     }
   }
 }

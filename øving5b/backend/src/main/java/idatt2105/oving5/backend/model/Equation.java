@@ -24,7 +24,7 @@ public class Equation {
     private double answer;
 
     public Equation(Expr expression, double answer) {
-        this.expression = expression.toString();
+        this.expression = expression.getExpression();
         this.answer = answer;
     }
 }
