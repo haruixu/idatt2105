@@ -3,6 +3,7 @@ package idatt2105.oving5.backend.service;
 import idatt2105.oving5.backend.dto.AuthenticationRequest;
 import idatt2105.oving5.backend.dto.AuthenticationResponse;
 import idatt2105.oving5.backend.dto.RegisterRequest;
+import idatt2105.oving5.backend.expections.UsernameAlreadyTakenException;
 import idatt2105.oving5.backend.model.Role;
 import idatt2105.oving5.backend.model.User;
 import idatt2105.oving5.backend.repository.UserRepository;
@@ -20,7 +21,10 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager manager;
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws UsernameAlreadyTakenException {
+        if (repository.findByUsername(request.getUsername()).isPresent()) {
+            throw new UsernameAlreadyTakenException("Username already taken");
+        }
         var user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))

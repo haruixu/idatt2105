@@ -2,6 +2,7 @@ package idatt2105.oving5.backend.controller;
 
 import idatt2105.oving5.backend.dto.AuthenticationRequest;
 import idatt2105.oving5.backend.dto.RegisterRequest;
+import idatt2105.oving5.backend.expections.UsernameAlreadyTakenException;
 import idatt2105.oving5.backend.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> register(
             @RequestBody RegisterRequest request
-    ) {
+    ) throws UsernameAlreadyTakenException {
         return ResponseEntity.ok(service.register(request));
     }
 
