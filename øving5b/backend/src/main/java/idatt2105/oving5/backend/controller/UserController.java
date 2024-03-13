@@ -17,16 +17,16 @@ public class UserController {
 
   private static final Logger logger = Logger.getLogger(UserController.class.getName());
 
-  @PostMapping("/users")
-  public ResponseEntity<?> registerUser(@RequestBody User user) {
-    logger.info("Received user: " + user);
-    if (user == null) {
-      logger.severe("User cannot be null");
-    }
-    user = userService.saveUser(user);
+ // @PostMapping("/users")
+ // public ResponseEntity<?> registerUser(@RequestBody User user) {
+ //   logger.info("Received user: " + user);
+ //   if (user == null) {
+ //     logger.severe("User cannot be null");
+ //   }
+ //   user = userService.saveUser(user);
 
-    return ResponseEntity.created(userService.createUserUri(user)).body(user);
-  }
+ //   return ResponseEntity.created(userService.createUserUri(user)).body(user);
+ // }
 
   @GetMapping("/users")
   public ResponseEntity<?> getUsers() {
