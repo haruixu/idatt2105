@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useTokenStore } from '@/stores/tokenstore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
       component: () => import('../views/SignupView.vue')
     }
   ]
+})
+
+router.beforeEach(async (to) => {
+  const token = useTokenStore().state.jwtToken;
+  if (!token && to.name != 'login' && to.name != 'signup') return '/login'
 })
 
 export default router
