@@ -15,7 +15,6 @@
 import { ref } from 'vue'
 import { signupRequest } from '@/utils/httputils'
 import { isLoginSuccessful } from '@/utils/loginutils'
-import router from '@/router'
 import SignupForm from '@/components/SignupForm.vue'
 
 const errorMsg = ref("")

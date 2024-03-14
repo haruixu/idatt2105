@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { loginRequest } from '../utils/httputils.js'
+import { loginRequest } from '@/utils/httputils'
 import { ref } from 'vue'
 
 export const useTokenStore = defineStore("token", () => {
