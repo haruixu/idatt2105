@@ -22,7 +22,7 @@ const tokenStore = useTokenStore();
 async function login(loginForm)
 {
   await tokenStore.getTokenAndSaveInStore(loginForm)
-  if (tokenStore.jwtToken) {
+  if (tokenStore.state.jwtToken) {
     await router.push("/home")
   }
   else {

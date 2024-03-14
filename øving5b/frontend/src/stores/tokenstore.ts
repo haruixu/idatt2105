@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { loginRequest, signupRequest } from '@/utils/httputils'
 import { ref } from 'vue'
+import { loginRequest, signupRequest } from '@/utils/httputils'
 
 export const useTokenStore = defineStore("token", () => {
   const state = ref({

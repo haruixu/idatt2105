@@ -18,20 +18,19 @@ export const calculationsRequest = (token) => {
             "Authorization": "Bearer " + token
         },
     };
-    return axios.get(baseurl + "/calculate", config)
+    return axios.get(baseurl + "/calculations", config)
 }
 
-export const calculateRequest = (calculation, token) => {
+export const calculateRequest = (calc, token) => {
+    const calculation = JSON.stringify({ expression: calc });
+
     const config = {
-        params: {
-            "eq": calculation
-        },
         headers: {
             "Content-type": "application/json",
             "Authorization": "Bearer " + token
         },
     };
-    return axios.get(baseurl + "/calculate", config)
+    return axios.post(baseurl + "/calculate", calculation, config)
 }
 
 export const loginRequest = (loginForm) => {
