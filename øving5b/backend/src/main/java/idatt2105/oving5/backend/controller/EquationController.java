@@ -67,7 +67,7 @@ public class EquationController {
       if (user.isPresent()) {
         User _user = user.get();
         //Equation savedEquation = userService.saveUserWithEquation(_user, equation);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(answer);
       } else {
         logger.severe("User does not exist");
         return ResponseEntity.notFound().build();

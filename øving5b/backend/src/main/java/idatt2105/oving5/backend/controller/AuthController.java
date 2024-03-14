@@ -21,7 +21,6 @@ public class AuthController {
     // Token is valid for a certain amount of time, cached in browser (if using session storage)
     // After time limit exceeded, token becomes invalidated - need to log in and generate new token
     // If we open up a new tab, you likely need to log in again, same goes for closing tab and reopening
-    // TODO: Unsure how home authentication becomes, as we have no backend endpoint
     private final AuthenticationService service;
 
     private static final Logger logger = Logger.getLogger(AuthController.class.getName());
