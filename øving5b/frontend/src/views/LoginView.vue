@@ -15,20 +15,20 @@
 import LoginForm from '@/components/LoginForm.vue'
 import { ref } from 'vue'
 import { useTokenStore} from '@/stores/tokenstore'
-import { isLoginSuccessful } from '@/utils/loginutils'
 import router from '@/router'
 
 const isFailedLogin = ref(false);
 const tokenStore = useTokenStore();
-async function login(loginForm) {
-
-  let response = await tokenStore.getTokenAndSaveInStore(loginForm)
-  if (isLoginSuccessful(response)) {
-      await router.push("/home")
+async function login(loginForm)
+{
+  await tokenStore.getTokenAndSaveInStore(loginForm)
+  if (tokenStore.jwtToken) {
+    await router.push("/home")
   }
   else {
-      isFailedLogin.value = true;
-    }
+    isFailedLogin.value = true;
+  }
 }
+
 </script>
 

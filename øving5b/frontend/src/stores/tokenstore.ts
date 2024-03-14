@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { loginRequest } from '@/utils/httputils'
+import { loginRequest, signupRequest } from '@/utils/httputils'
 import { ref } from 'vue'
 
 export const useTokenStore = defineStore("token", () => {
@@ -7,6 +7,24 @@ export const useTokenStore = defineStore("token", () => {
     jwtToken: null,
     loggedInUser: null,
   });
+
+
+  /**
+   * Signup token
+   * @param userCredentials
+   */
+  const getToken = async  (userCredentials) => {
+    try {
+      const response = await signupRequest(userCredentials).data;
+      const data = response.data;
+      if (data != null && data != '' && data != undefined) {
+        state.value.jwtToken = data;
+      }
+      return data;
+    } catch (err) {
+      console.log(err)
+    }
+  };
 
   /**
    * Login token
@@ -26,6 +44,7 @@ export const useTokenStore = defineStore("token", () => {
   };
   return {
     state,
+    getToken,
     getTokenAndSaveInStore,
   };
 });
