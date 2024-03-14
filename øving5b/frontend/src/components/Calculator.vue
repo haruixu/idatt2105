@@ -68,11 +68,14 @@ button {
 </style>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import {calculationRequest} from "@/utils/httputils";
+import { type Ref, ref, type UnwrapRef } from 'vue'
+import {calculateRequest} from "@/utils/httputils";
+import { useTokenStore } from '@/stores/tokenstore'
+
+const tokenStore = useTokenStore();
 
 const emit = defineEmits<{
-  calculate: [expression: string]
+  (e: 'calculate', token: UnwrapRef<UnwrapRef<Ref<UnwrapRef<{ jwtToken: null; loggedInUser: null }>>>['jwtToken']>): void
 }>()
 
 const displayVal = ref("");
@@ -119,12 +122,11 @@ async function clickBtn(value: string) {
 //todo burde denne ha vært i calculatorview i stedet for?
 async function evaluateExpression(expression: string) {
   try {
-    let response = await calculationRequest(expression);
-    let data = response.data;
+    let response = await calculateRequest(expression, tokenStore.state.jwtToken);
 
-    let result = data.calculation.answer;
+    let result = response.data;
     storedVal = result;
-    emit('calculate', expression + " = " + result)
+    emit('calculate', tokenStore.state.jwtToken)
     isFinal = true;
     return result;
 

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <Calculator class="calculator" @calculate="addToLog"/>
+    <Calculator class="calculator" @calculate="updateLog"/>
     <Log class="log" :equation-log="log" />
   </div>
 
@@ -30,9 +30,14 @@
 import Calculator from '@/components/Calculator.vue';
 import Log from '@/components/Log.vue'
 import { ref } from 'vue'
+import { calculationsRequest } from '@/utils/httputils'
 
+// TODO: receive paginated response - prolly no need to store it in log anyore - just show it raw instead in html
 const log = ref([] as string[]);
-const addToLog = (expression: string) => {
-  log.value.unshift(expression);
+
+const updateLog = async (token: string) => {
+  console.log(token)
+  let topTenLatestExpressions = await calculationsRequest(token)
+  //log.value.unshift(expression);
 };
 </script>
