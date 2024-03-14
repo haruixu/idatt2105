@@ -1,25 +1,31 @@
 import { defineStore } from "pinia";
-import {getJwtToken} from "../utils/httputils.js"
+import { loginRequest } from '../utils/httputils.js'
+import { ref } from 'vue'
 
-export const useTokenStore = defineStore("token", {
-  state: () => ({
+export const useTokenStore = defineStore("token", () => {
+  const state = ref({
     jwtToken: null,
     loggedInUser: null,
-  }),
+  });
 
-  actions: {
-    async getTokenAndSaveInStore(username, password) {
-      try{
-        // TODO: change to login or signyup
-        const response = await getJwtToken(username, password);
-        const data = response.data;
-        if(data != null && data != '' && data != undefined){
-          this.jwtToken = data;
-          this.loggedInUser = user
-        }
-      } catch (err){
-        console.log(err)
+  /**
+   * Login token
+   * @param userCredentials
+   */
+  const getTokenAndSaveInStore = async (userCredentials) => {
+    try {
+      const response = await loginRequest(userCredentials);
+      const data = response.data;
+      if (data != null && data != '' && data != undefined) {
+        state.value.jwtToken = data;
+        state.value.loggedInUser = userCredentials.value.username;
       }
+    } catch (err) {
+      console.log(err)
     }
-  },
+  };
+  return {
+    state,
+    getTokenAndSaveInStore,
+  };
 });

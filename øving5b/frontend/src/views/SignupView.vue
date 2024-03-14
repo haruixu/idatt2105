@@ -22,7 +22,7 @@ const errorMsg = ref("")
 async function signup(loginForm) {
   let response = await signupRequest(loginForm)
   if (isLoginSuccessful(response)) {
-      await router.push("/home")
+    alert("Created user")
   }
   else {
     // TODO: may need to change
