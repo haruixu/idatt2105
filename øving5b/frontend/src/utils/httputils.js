@@ -11,14 +11,24 @@ export const submissionRequest = (user) => {
     return axios.post(baseurl + "/submissions", user, config);
 }
 
-export const calculationRequest = (calculation) => {
+export const calculationsRequest = (token) => {
+    const config = {
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+    };
+    return axios.get(baseurl + "/calculate", config)
+}
+
+export const calculateRequest = (calculation, token) => {
     const config = {
         params: {
             "eq": calculation
         },
         headers: {
             "Content-type": "application/json",
-            // TODO: "Bearer token: "token"
+            "Authorization": "Bearer " + token
         },
     };
     return axios.get(baseurl + "/calculate", config)
