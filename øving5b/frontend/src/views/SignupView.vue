@@ -13,20 +13,19 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { signupRequest } from '@/utils/httputils'
-import { isLoginSuccessful } from '@/utils/loginutils'
-import router from '@/router'
 import SignupForm from '@/components/SignupForm.vue'
+import { useTokenStore } from '@/stores/tokenstore'
 
 const errorMsg = ref("")
+const tokenStore = useTokenStore();
 async function signup(loginForm) {
-  let response = await signupRequest(loginForm)
-  if (isLoginSuccessful(response)) {
-      await router.push("/home")
+  const data = await tokenStore.getToken(loginForm)
+  if (tokenStore.jwtToken) {
+    alert("Created user")
   }
   else {
     // TODO: may need to change
-    errorMsg.value = response.body
+    errorMsg.value = data;
   }
 }
 </script>
