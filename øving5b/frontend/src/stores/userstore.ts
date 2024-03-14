@@ -8,8 +8,7 @@ interface User {
 export const useUserStore = defineStore('users', () => {
     const user= ref<User>();
     function submitUser(name: string, email: string) {
-        const newUser = { name, email }
-        user.value = newUser;
+        user.value = { name, email };
     }
     return { user, submitUser};
 });
