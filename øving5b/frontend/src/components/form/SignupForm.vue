@@ -41,8 +41,8 @@
 <script setup lang="ts">
 
 import { ref, defineProps, defineEmits} from 'vue'
-import Field from '@/components/Field.vue'
-import Input from '@/components/Input.vue'
+import Field from '@/components/form/Field.vue'
+import Input from '@/components/form/Input.vue'
 
 const signupForm = ref({
   username: "",

@@ -43,9 +43,9 @@
 <script setup lang="ts">
 
 import { ref, defineEmits, defineProps} from 'vue'
-import Field from '@/components/Field.vue'
-import Input from '@/components/Input.vue'
-import ErrorMessage from '@/components/ErrorMessage.vue'
+import Field from '@/components/form/Field.vue'
+import Input from '@/components/form/Input.vue'
+import ErrorMessage from '@/components/form/ErrorMessage.vue'
 
 const loginForm = ref({
   username: "",

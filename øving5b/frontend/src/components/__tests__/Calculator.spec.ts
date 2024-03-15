@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import Calculator from '../Calculator.vue';
+import Calculator from '../calculator/Calculator.vue';
 
 let wrapper;
 describe('Calculator button and display rendering', () => {
@@ -223,7 +223,6 @@ describe('Calculator display rendering when using buttons', () => {
     })
 
     it('appends opperator to expression', async () => {
-        const error = "Invalid expression";
         const instance = wrapper.vm;
         instance.hasError = true;
 
@@ -261,7 +260,6 @@ describe('Calculator display rendering when using buttons', () => {
     })
 
     it('Clears the expression if the displayed value is final', async () => {
-        const expression = "1";
         const instance = wrapper.vm;
         instance.isFinal = true;
 

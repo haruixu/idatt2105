@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import Input from '@/components/Input.vue';
-import Field from "@/components/Field.vue";
-import TextArea from "@/components/TextArea.vue";
+import Input from '@/components/form/Input.vue';
+import Field from "@/components/form/Field.vue";
+import TextArea from "@/components/form/TextArea.vue";
 
 const form = ref({
   name: "",

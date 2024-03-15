@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
 import { provide, computed } from 'vue'
-import Label from '@/components/Label.vue';
-import ErrorMessage from '@/components/ErrorMessage.vue';
-import HelperMessage from '@/components/HelperMessage.vue';
+import Label from '@/components/form/Label.vue';
+import ErrorMessage from '@/components/form/ErrorMessage.vue';
+import HelperMessage from '@/components/form/HelperMessage.vue';
 
 
 const props = defineProps({

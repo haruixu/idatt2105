@@ -27,8 +27,8 @@
 </style>
 
 <script setup lang="ts">
-import Calculator from '@/components/Calculator.vue';
-import Log from '@/components/Log.vue'
+import Calculator from '@/components/calculator/Calculator.vue';
+import Log from '@/components/calculator/Log.vue'
 import { ref } from 'vue'
 import { calculationsRequest } from '@/utils/httputils'
 

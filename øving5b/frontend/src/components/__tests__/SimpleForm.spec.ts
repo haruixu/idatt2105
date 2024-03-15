@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import SimpleForm from '../SimpleForm.vue';
+import SimpleForm from '../form/SimpleForm.vue';
 
 let wrapper;
 

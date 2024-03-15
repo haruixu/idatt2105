@@ -10,8 +10,8 @@
   }
 
   p {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
 
   }
 </style>

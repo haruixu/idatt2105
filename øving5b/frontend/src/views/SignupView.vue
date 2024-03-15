@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import SignupForm from '@/components/SignupForm.vue'
+import SignupForm from '@/components/form/SignupForm.vue'
 import { useTokenStore } from '@/stores/tokenstore'
 
 const errorMsg = ref("")

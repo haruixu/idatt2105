@@ -12,7 +12,7 @@
 </style>
 
 <script setup lang="ts">
-import LoginForm from '@/components/LoginForm.vue'
+import LoginForm from '@/components/form/LoginForm.vue'
 import { ref } from 'vue'
 import { useTokenStore} from '@/stores/tokenstore'
 import router from '@/router'

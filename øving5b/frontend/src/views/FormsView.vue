@@ -23,7 +23,7 @@
 
 
 <script setup lang="ts">
-import SimpleForm from "@/components/SimpleForm.vue";
+import SimpleForm from "@/components/form/SimpleForm.vue";
 import router from '@/router';
 import {isSubmittingSuccessful} from "@/utils/loginutils.js"
 import {submissionRequest} from "@/utils/httputils.js"
