@@ -1,14 +1,27 @@
 <template>
-  <h1>
-    This is login view
-  </h1>
-  <LoginForm
-    :invalid-credentials="isFailedLogin"
-    @login="login"
-  ></LoginForm>
+  <div id="wrapper">
+    <h1>
+      This is login view
+    </h1>
+    <LoginForm
+      :invalid-credentials="isFailedLogin"
+      @login="login"
+    ></LoginForm>
+  </div>
 </template>
 
 <style scoped>
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+}
 </style>
 
 <script setup lang="ts">

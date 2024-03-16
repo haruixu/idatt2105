@@ -3,7 +3,7 @@
 
     <Field
       id="username-field"
-      label="username"
+      label="Username"
       required
     >
       <Input
@@ -15,7 +15,7 @@
 
     <Field
       id="password-field"
-      label="password"
+      label="Password"
       required
     >
       <Input
@@ -37,6 +37,15 @@
 </template>
 
 <style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+button {
+  margin-top: 1rem;
+}
 
 </style>
 

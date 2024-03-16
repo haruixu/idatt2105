@@ -1,14 +1,27 @@
 <template>
-  <h1>
-    This is signup view
-  </h1>
-  <SignupForm
-    :username="errorMsg"
-    @signup="signup"
-  ></SignupForm>
+  <div id="wrapper">
+    <h1>
+      This is signup view
+    </h1>
+    <SignupForm
+      :username="errorMsg"
+      @signup="signup"
+    ></SignupForm>
+  </div>
 </template>
 
 <style scoped>
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+}
 </style>
 
 <script setup lang="ts">
