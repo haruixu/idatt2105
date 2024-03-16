@@ -41,7 +41,7 @@ public class EquationController {
   public ResponseEntity<?> getEquations(
           @RequestHeader("Authorization") String token) {
 
-    Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token));
+    Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token.substring(7)));
 
     // todo paginate response
     if (user.isPresent()) {
