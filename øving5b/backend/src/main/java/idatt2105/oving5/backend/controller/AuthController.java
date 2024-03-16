@@ -5,8 +5,10 @@ import idatt2105.oving5.backend.dto.RegisterRequest;
 import idatt2105.oving5.backend.expections.UsernameAlreadyTakenException;
 import idatt2105.oving5.backend.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin
 public class AuthController {
 
     // TODO: Token is generated for each login
@@ -34,7 +37,7 @@ public class AuthController {
         try {
             return ResponseEntity.ok(service.register(request));
         } catch (UsernameAlreadyTakenException usernameException) {
-            logger.severe("Duplicate username signup");
+            logger.severe(usernameException.getMessage());
             return ResponseEntity.badRequest().body(usernameException.getMessage());
         } catch (Exception e) {
             logger.severe("Failed to signup due to: " + e.getClass());

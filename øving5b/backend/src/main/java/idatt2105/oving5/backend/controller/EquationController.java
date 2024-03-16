@@ -16,6 +16,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class EquationController {
 
   private final UserService userService;
