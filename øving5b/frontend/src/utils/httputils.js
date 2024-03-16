@@ -15,7 +15,7 @@ export const calculationsRequest = (token) => {
     const config = {
         headers: {
             "Content-type": "application/json",
-            "Authorization": "Bearer " + token
+            "Authorization": "Bearer " + token.token
         },
     };
     return axios.get(baseurl + "/calculations", config)
@@ -27,7 +27,7 @@ export const calculateRequest = (calc, token) => {
     const config = {
         headers: {
             "Content-type": "application/json",
-            "Authorization": "Bearer " + token
+            "Authorization": "Bearer " + token.token
         },
     };
     return axios.post(baseurl + "/calculate", calculation, config)

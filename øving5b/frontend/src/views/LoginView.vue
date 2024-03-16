@@ -28,9 +28,12 @@ async function login(loginForm)
       await router.push("/")
     }
     else {
+      console.log("else")
       isFailedLogin.value = true;
     }
   } catch (e) {
+    console.log("catch")
+    isFailedLogin.value = true
     console.log(e)
   }
 }

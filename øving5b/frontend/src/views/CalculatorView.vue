@@ -36,8 +36,12 @@ import { calculationsRequest } from '@/utils/httputils'
 const log = ref([] as string[]);
 
 const updateLog = async (token: string) => {
-  console.log(token)
-  let topTenLatestExpressions = await calculationsRequest(token)
-  //log.value.unshift(expression);
+  try {
+    console.log(token)
+    let topTenLatestExpressions = await calculationsRequest(token)
+    //log.value.unshift(expression);
+  } catch (e) {
+    console.log(e)
+  }
 };
 </script>

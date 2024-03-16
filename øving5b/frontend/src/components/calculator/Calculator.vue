@@ -68,15 +68,13 @@ button {
 </style>
 
 <script setup lang="ts">
-import { type Ref, ref, type UnwrapRef } from 'vue'
+import { ref } from 'vue'
 import {calculateRequest} from "@/utils/httputils";
 import { useTokenStore } from '@/stores/tokenstore'
 
 const tokenStore = useTokenStore();
 
-const emit = defineEmits<{
-  (e: 'calculate', token: UnwrapRef<UnwrapRef<Ref<UnwrapRef<{ jwtToken: null; loggedInUser: null }>>>['jwtToken']>): void
-}>()
+const emit = defineEmits(['calculate'])
 
 const displayVal = ref("");
 const hasError = ref(false);
