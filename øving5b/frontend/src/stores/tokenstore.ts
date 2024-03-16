@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { loginRequest, signupRequest } from '@/utils/httputils'
 
 export const useTokenStore = defineStore("token", () => {
@@ -8,22 +8,26 @@ export const useTokenStore = defineStore("token", () => {
     loggedInUser: null,
   });
 
+  const hasLoggedInUser = computed(() => {
+    return state.value.loggedInUser !== null;
+  });
+
+  const clearTokenStore = () => {
+    state.value.jwtToken = null;
+    state.value.loggedInUser = null;
+  }
 
   /**
    * Signup token
    * @param userCredentials
    */
   const getToken = async  (userCredentials) => {
-    try {
       const response = await signupRequest(userCredentials);
       const data = response.data;
       if (data != null && data != '' && data != undefined) {
         state.value.jwtToken = data;
       }
       return data;
-    } catch (err) {
-      console.log(err)
-    }
   };
 
   /**
@@ -31,19 +35,18 @@ export const useTokenStore = defineStore("token", () => {
    * @param userCredentials
    */
   const getTokenAndSaveInStore = async (userCredentials) => {
-    try {
       const response = await loginRequest(userCredentials);
       const data = response.data;
       if (data != null && data != '' && data != undefined) {
         state.value.jwtToken = data;
-        state.value.loggedInUser = userCredentials.value.username;
+        state.value.loggedInUser = userCredentials.username;
       }
-    } catch (err) {
-      console.log(err)
-    }
   };
+
   return {
     state,
+    hasLoggedInUser,
+    clearTokenStore,
     getToken,
     getTokenAndSaveInStore,
   };

@@ -4,7 +4,7 @@
   </h1>
   <SignupForm
     :username="errorMsg"
-    @login="signup"
+    @signup="signup"
   ></SignupForm>
 </template>
 
@@ -15,20 +15,23 @@
 import { ref } from 'vue'
 import SignupForm from '@/components/form/SignupForm.vue'
 import { useTokenStore } from '@/stores/tokenstore'
+import { signupRequest } from '@/utils/httputils'
 import router from '@/router'
 
 const errorMsg = ref("")
 const tokenStore = useTokenStore();
 async function signup(loginForm) {
-  console.log("Recevied emit, now signing up")
-  const data = await tokenStore.getToken(loginForm)
-  if (tokenStore.jwtToken) {
-    alert("Created user")
-    await router.push("/login")
-  }
-  else {
-    // TODO: may need to change
-    errorMsg.value = data;
+  try {
+
+    console.log("Recevied emit, now signing up")
+    console.log(loginForm)
+    const response = await tokenStore.getToken(loginForm)
+    if (response.status === 200) {
+      console.log("SDuccess")
+      //await router.push("/login")
+    }
+  } catch (e) {
+    errorMsg.value = e.response.data
   }
 }
 </script>

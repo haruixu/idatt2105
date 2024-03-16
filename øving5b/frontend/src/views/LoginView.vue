@@ -21,12 +21,17 @@ const isFailedLogin = ref(false);
 const tokenStore = useTokenStore();
 async function login(loginForm)
 {
-  await tokenStore.getTokenAndSaveInStore(loginForm)
-  if (tokenStore.state.jwtToken) {
-    await router.push("/home")
-  }
-  else {
-    isFailedLogin.value = true;
+  console.log(loginForm)
+  try {
+    await tokenStore.getTokenAndSaveInStore(loginForm)
+    if (tokenStore.state.jwtToken) {
+      await router.push("/")
+    }
+    else {
+      isFailedLogin.value = true;
+    }
+  } catch (e) {
+    console.log(e)
   }
 }
 
