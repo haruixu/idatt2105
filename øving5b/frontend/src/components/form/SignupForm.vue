@@ -27,7 +27,7 @@
       />
     </Field>
 
-    <button @click="signup">
+    <button type="submit">
       Sign up
     </button>
 
@@ -53,11 +53,12 @@ const errorMsg = defineProps({
   username: String
 })
 
-const emit = defineEmits(['signup']);
+const emit= defineEmits(['signup']);
 
 function signup() {
-  console.log("Emitting signup")
-  emit('signup', signupForm)
+  console.log("Emitting signup: ")
+  console.log(signupForm)
+  emit('signup', signupForm.value)
 }
 
 </script>

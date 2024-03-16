@@ -29,7 +29,7 @@
       v-if="props.invalidCredentials">
       Invalid credentials biatch
     </ErrorMessage>
-    <button @click="login">
+    <button type="submit">
       Log in
     </button>
 
