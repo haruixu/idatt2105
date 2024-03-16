@@ -59,7 +59,7 @@ const props = defineProps({
   });
 
 function login() {
-  emit('login', loginForm)
+  emit('login', loginForm.value)
 }
 
 
