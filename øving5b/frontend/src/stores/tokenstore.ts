@@ -15,7 +15,7 @@ export const useTokenStore = defineStore("token", () => {
    */
   const getToken = async  (userCredentials) => {
     try {
-      const response = await signupRequest(userCredentials).data;
+      const response = await signupRequest(userCredentials);
       const data = response.data;
       if (data != null && data != '' && data != undefined) {
         state.value.jwtToken = data;

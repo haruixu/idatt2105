@@ -29,6 +29,7 @@ public class AuthController {
     public ResponseEntity<?> register(
             @RequestBody RegisterRequest request
     ) {
+        logger.info("Received signup: " + request);
         // TODO: Created 201 with body!!
         try {
             return ResponseEntity.ok(service.register(request));
@@ -45,6 +46,7 @@ public class AuthController {
     public ResponseEntity<?> register(
             @RequestBody AuthenticationRequest request
     ) {
+        logger.info("Received login: " + request);
         return ResponseEntity.ok(service.authenticate(request));
     }
 }

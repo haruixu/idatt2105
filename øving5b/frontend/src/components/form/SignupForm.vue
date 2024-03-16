@@ -56,6 +56,7 @@ const errorMsg = defineProps({
 const emit = defineEmits(['signup']);
 
 function signup() {
+  console.log("Emitting signup")
   emit('signup', signupForm)
 }
 
