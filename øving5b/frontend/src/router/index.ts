@@ -41,8 +41,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  const token = useTokenStore().state.jwtToken;
-  if (!token && to.name != 'login' && to.name != 'signup') return '/login'
+  const token = useTokenStore().state.persist.storage;
+  if (!token && (to.name != 'login' && to.name != 'signup')) return '/login'
 })
 
 export default router
