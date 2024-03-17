@@ -7,6 +7,7 @@
         <div v-if="!hasLoggedInUser">
           <button id="loginBtn" @click="switchLogin">Log in</button>
           <button id="signupBtn" @click="switchSignup">Sign up</button>
+          <button id="logoutBtn" @click="logout">Log out</button>
         </div>
         <div v-else>
           <button id="logoutBtn" @click="logout">Log out</button>
@@ -82,8 +83,9 @@ nav a.router-link-exact-active {
   import { RouterLink, RouterView } from 'vue-router'
   import router from '@/router';
   import { useTokenStore } from '@/stores/tokenstore'
-
-  const hasLoggedInUser = useTokenStore().hasLoggedInUser
+  import { computed } from 'vue'
+  // TODO: Bug where if you refresh, you continue session, but logged in user is reset to null
+const hasLoggedInUser = computed(() => useTokenStore().hasLoggedInUser);
   const switchHome = () => {
     router.push("/");
   }
