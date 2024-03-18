@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,28 @@ public class UserService {
 
   public List<User> findAllUsers() {
     return userRepository.findAll();
+  }
+
+  public Page<Equation> findAllEquations(String username, int page, int size) {
+    Optional<User> user = findUserByUsername(username);
+
+    if (user.isPresent()) {
+      List<Equation> equations = user.get().getEquations();
+
+      Pageable pageable =createPageRequestUsing(page, size);
+
+      int start = (int) pageable.getOffset();
+      int end = Math.min((start + pageable.getPageSize()), equations.size());
+
+      List<Equation> pageContent = equations.subList(start, end);
+      return new PageImpl<>(pageContent, pageable, equations.size());
+    }
+    else {
+      throw new IllegalArgumentException("Username does not exist");
+    }
+  }
+  private Pageable createPageRequestUsing(int page, int size) {
+    return PageRequest.of(page, size);
   }
 
   public Equation saveUserWithEquation(User user, Equation equation) {

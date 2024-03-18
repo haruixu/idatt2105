@@ -41,13 +41,16 @@ public class EquationController {
   public ResponseEntity<?> getEquations(
           @RequestHeader("Authorization") String token) {
 
-    Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token.substring(7)));
+    try {
+      String username = jwtService.extractUsername(token.substring(7));
 
-    // todo paginate response
-    if (user.isPresent()) {
-      return ResponseEntity.ok(user.get().getEquations());
-    } else {
-      return ResponseEntity.badRequest().body("Found no user with this username");
+      userService.findAllEquations(username, -1, -1);
+
+      // todo paginate response
+      return null;
+        //return ResponseEntity.ok(user.get().getEquations());
+    } catch (IllegalArgumentException e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
 
