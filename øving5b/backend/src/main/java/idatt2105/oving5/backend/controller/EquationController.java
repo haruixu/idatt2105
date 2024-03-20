@@ -39,7 +39,7 @@ public class EquationController {
     try {
       String username = jwtService.extractUsername(token.substring(7));
 
-      return ResponseEntity.ok(userService.findAllEquations(username, 0, 10));
+      return ResponseEntity.ok(userService.findAllEquations(username));
 
     } catch (IllegalArgumentException e) {
       return ResponseEntity.badRequest().body(e.getMessage());
@@ -71,7 +71,7 @@ public class EquationController {
       }
     } catch (Exception e) {
       logger.severe(e.getMessage());
-      return ResponseEntity.badRequest().body("Invalid token");
+      return ResponseEntity.badRequest().body("Invalid expression");
     }
   }
 }
