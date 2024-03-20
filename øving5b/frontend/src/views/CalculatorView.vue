@@ -27,19 +27,17 @@
 </style>
 
 <script setup lang="ts">
-import Calculator from '@/components/calculator/Calculator.vue';
+import Calculator from '@/components/calculator/Calculator.vue'
 import Log from '@/components/calculator/Log.vue'
 import { ref } from 'vue'
 import { calculationsRequest } from '@/utils/httputils'
 
-// TODO: receive paginated response - prolly no need to store it in log anyore - just show it raw instead in html
 const log = ref([] as string[]);
 
 const updateLog = async (token: string) => {
   try {
     console.log(token)
-    let topTenLatestExpressions = await calculationsRequest(token)
-    //log.value.unshift(expression);
+    log.value = await calculationsRequest(token);
   } catch (e) {
     console.log(e)
   }
