@@ -5,8 +5,10 @@ import idatt2105.oving5.backend.model.User;
 import idatt2105.oving5.backend.repository.UserRepository;
 import java.net.URI;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,6 +27,39 @@ public class UserService {
   }
   public Optional<User> findUserById(long id) {
     return userRepository.findById(id);
+  }
+
+  public Optional<User> findUserByUsername(String username) { return userRepository.findByUsername(username); }
+
+  public List<User> findAllUsers() {
+    return userRepository.findAll();
+  }
+
+  public Page<Equation> findAllEquations(String username, int page, int size) {
+    Optional<User> user = findUserByUsername(username);
+
+    if (user.isPresent()) {
+      System.out.println(user.get().getEquations());
+      List<Equation> equations = user.get().getEquations();
+
+      // Pagination info for paginating request
+      Pageable pageRequest = createPageRequestUsing(page, size);
+
+      int start = (int) pageRequest.getOffset();
+      int end = Math.min((start + pageRequest.getPageSize()), equations.size());
+
+      List<Equation> pageContent = equations.subList(start, end);
+      return new PageImpl<>(pageContent, pageRequest, equations.size());
+    }
+    else {
+      throw new IllegalArgumentException("Username does not exist");
+    }
+  }
+
+  private Pageable createPageRequestUsing(int page, int size) {
+    // Sorting after id - highest id = latest entry
+    Sort sort = Sort.by(Sort.Direction.fromString("DESC"), "id");
+    return PageRequest.of(page, size, sort);
   }
 
   public Equation saveUserWithEquation(User user, Equation equation) {
