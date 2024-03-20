@@ -21,18 +21,15 @@ public class EquationController {
 
   private final UserService userService;
 
-  private final EquationService equationService;
-
   private final ExpressionService expressionService;
 
   private final JwtService jwtService;
 
   public static final Logger logger = Logger.getLogger(EquationController.class.getName());
 
-  public EquationController(UserService userService, EquationService equationService,
+  public EquationController(UserService userService,
       ExpressionService expressionService, JwtService jwtService) {
     this.userService = userService;
-    this.equationService = equationService;
     this.expressionService = expressionService;
     this.jwtService = jwtService;
   }
@@ -44,11 +41,8 @@ public class EquationController {
     try {
       String username = jwtService.extractUsername(token.substring(7));
 
-      userService.findAllEquations(username, -1, -1);
+      return ResponseEntity.ok(userService.findAllEquations(username, 0, 10));
 
-      // todo paginate response
-      return null;
-        //return ResponseEntity.ok(user.get().getEquations());
     } catch (IllegalArgumentException e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
@@ -70,6 +64,7 @@ public class EquationController {
       Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token.substring(7)));
       if (user.isPresent()) {
         User _user = user.get();
+        // TODO: Insert equation into user
         //Equation savedEquation = userService.saveUserWithEquation(_user, equation);
         return ResponseEntity.ok().body(answer);
       } else {

@@ -39,22 +39,27 @@ public class UserService {
     Optional<User> user = findUserByUsername(username);
 
     if (user.isPresent()) {
+      System.out.println(user.get().getEquations());
       List<Equation> equations = user.get().getEquations();
 
-      Pageable pageable =createPageRequestUsing(page, size);
+      // Pagination info for paginating request
+      Pageable pageRequest = createPageRequestUsing(page, size);
 
-      int start = (int) pageable.getOffset();
-      int end = Math.min((start + pageable.getPageSize()), equations.size());
+      int start = (int) pageRequest.getOffset();
+      int end = Math.min((start + pageRequest.getPageSize()), equations.size());
 
       List<Equation> pageContent = equations.subList(start, end);
-      return new PageImpl<>(pageContent, pageable, equations.size());
+      return new PageImpl<>(pageContent, pageRequest, equations.size());
     }
     else {
       throw new IllegalArgumentException("Username does not exist");
     }
   }
+
   private Pageable createPageRequestUsing(int page, int size) {
-    return PageRequest.of(page, size);
+    // Sorting after id - highest id = latest entry
+    Sort sort = Sort.by(Sort.Direction.fromString("DESC"), "id");
+    return PageRequest.of(page, size, sort);
   }
 
   public Equation saveUserWithEquation(User user, Equation equation) {
