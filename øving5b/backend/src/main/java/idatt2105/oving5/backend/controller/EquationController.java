@@ -62,8 +62,8 @@ public class EquationController {
       Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token.substring(7)));
       if (user.isPresent()) {
         User _user = user.get();
-        // TODO: Insert equation into user
-        //Equation savedEquation = userService.saveUserWithEquation(_user, equation);
+        _user.addEquation(equation);
+        userService.saveUser(_user);
         return ResponseEntity.ok().body(answer);
       } else {
         logger.severe("User does not exist");
