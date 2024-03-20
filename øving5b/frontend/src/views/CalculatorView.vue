@@ -36,10 +36,21 @@ const log = ref([] as string[]);
 
 const updateLog = async (token: string) => {
   try {
-    console.log(token)
-    log.value = await calculationsRequest(token);
+    let response = await calculationsRequest(token);
+    log.value = toList(response.data)
   } catch (e) {
     console.log(e)
   }
 };
+
+const toList = (content: Array) => {
+  const list = []
+
+  content.forEach(element => {
+    list.push(element.expression + " = " + element.answer);
+  })
+
+  return list;
+}
+
 </script>

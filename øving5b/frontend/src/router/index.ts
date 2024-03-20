@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useTokenStore } from '@/stores/tokenstore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,8 +40,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  const token = useTokenStore().state.persist.storage;
-  if (!token && (to.name != 'login' && to.name != 'signup')) return '/login'
+  if (!sessionStorage.getItem("token") && (to.name != 'login' && to.name != 'signup')) return '/login'
 })
 
 export default router

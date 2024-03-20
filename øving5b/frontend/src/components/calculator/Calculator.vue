@@ -120,18 +120,18 @@ async function clickBtn(value: string) {
 //todo burde denne ha vært i calculatorview i stedet for?
 async function evaluateExpression(expression: string) {
   try {
-    let response = await calculateRequest(expression, tokenStore.state.jwtToken);
+    let response = await calculateRequest(expression, sessionStorage.getItem("token"));
 
     let result = response.data;
     storedVal = result;
-    emit('calculate', tokenStore.state.jwtToken)
+    emit('calculate', sessionStorage.getItem("token"))
     isFinal = true;
     return result;
 
   } catch (e) {
     isFinal = true;
     hasError.value = true;
-    error.value = e.response.data.context;
+    error.value = e.response.data;
     return "";
   }
 }

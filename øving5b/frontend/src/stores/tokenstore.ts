@@ -6,9 +6,6 @@ export const useTokenStore = defineStore("token", () => {
   const state = ref({
     jwtToken: null,
     loggedInUser: null,
-    persist: {
-      storage: sessionStorage
-    }
     });
 
     const hasLoggedInUser = computed(() => {
@@ -18,7 +15,7 @@ export const useTokenStore = defineStore("token", () => {
   const clearTokenStore = () => {
     state.value.jwtToken = null;
     state.value.loggedInUser = null;
-    state.value.persist.storage.clear()
+    sessionStorage.clear()
   }
 
   /**
@@ -32,7 +29,8 @@ export const useTokenStore = defineStore("token", () => {
         console.log(token)
       if (data != '' && data != undefined) {
           state.value.jwtToken = token;
-        state.value.persist.storage.setItem("token", token);
+        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("loggedInUser", userCredentials.username)
       }
       return token;
   };
@@ -48,7 +46,9 @@ export const useTokenStore = defineStore("token", () => {
       if (data != '' && data != undefined) {
         state.value.jwtToken = token;
         state.value.loggedInUser = userCredentials.username;
-        state.value.persist.storage.setItem("token", token);
+        sessionStorage.setItem("loggedInUser", userCredentials.username)
+        sessionStorage.setItem("token", token)
+        console.log(token)
       }
   };
 
