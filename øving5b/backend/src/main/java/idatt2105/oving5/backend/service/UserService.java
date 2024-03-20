@@ -35,21 +35,19 @@ public class UserService {
     return userRepository.findAll();
   }
 
-  public Page<Equation> findAllEquations(String username, int page, int size) {
+  public List<Equation> findAllEquations(String username, int page, int size) {
     Optional<User> user = findUserByUsername(username);
 
     if (user.isPresent()) {
       System.out.println(user.get().getEquations());
       List<Equation> equations = user.get().getEquations();
 
-      // Pagination info for paginating request
-      Pageable pageRequest = createPageRequestUsing(page, size);
-
-      int start = (int) pageRequest.getOffset();
-      int end = Math.min((start + pageRequest.getPageSize()), equations.size());
-
-      List<Equation> pageContent = equations.subList(start, end);
-      return new PageImpl<>(pageContent, pageRequest, equations.size());
+      if (equations.size() < 10) {
+        return equations.reversed().subList(0, equations.size() - 1);
+      }
+      else {
+        return equations.reversed().subList(0, 10);
+      }
     }
     else {
       throw new IllegalArgumentException("Username does not exist");
@@ -58,7 +56,7 @@ public class UserService {
 
   private Pageable createPageRequestUsing(int page, int size) {
     // Sorting after id - highest id = latest entry
-    Sort sort = Sort.by(Sort.Direction.fromString("DESC"), "id");
+    Sort sort = Sort.by("id").descending();
     return PageRequest.of(page, size, sort);
   }
 

@@ -71,7 +71,7 @@ public class EquationController {
       }
     } catch (Exception e) {
       logger.severe(e.getMessage());
-      return ResponseEntity.badRequest().body("Invalid token");
+      return ResponseEntity.badRequest().body("Invalid expression");
     }
   }
 }
