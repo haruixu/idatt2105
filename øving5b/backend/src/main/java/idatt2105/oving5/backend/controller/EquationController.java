@@ -3,12 +3,10 @@ package idatt2105.oving5.backend.controller;
 import idatt2105.oving5.backend.model.Equation;
 import idatt2105.oving5.backend.model.User;
 import idatt2105.oving5.backend.model.Expr;
-import idatt2105.oving5.backend.service.EquationService;
 import idatt2105.oving5.backend.service.ExpressionService;
 import idatt2105.oving5.backend.service.JwtService;
 import idatt2105.oving5.backend.service.UserService;
 
-import java.net.URI;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +57,7 @@ public class EquationController {
         return ResponseEntity.badRequest().body("Cannot divide by zero");
       }
       Equation equation = new Equation(expression, answer);
-      logger.info("New equstion: " + equation);
+      logger.info("New equation: " + equation);
 
       Optional<User> user = userService.findUserByUsername(jwtService.extractUsername(token.substring(7)));
       if (user.isPresent()) {
