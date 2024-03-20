@@ -4,11 +4,9 @@ import idatt2105.oving5.backend.model.Equation;
 import idatt2105.oving5.backend.model.User;
 import idatt2105.oving5.backend.repository.UserRepository;
 import java.net.URI;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,7 +33,7 @@ public class UserService {
     return userRepository.findAll();
   }
 
-  public List<Equation> findAllEquations(String username, int page, int size) {
+  public List<Equation> findAllEquations(String username) {
     Optional<User> user = findUserByUsername(username);
 
     if (user.isPresent()) {
@@ -54,22 +52,6 @@ public class UserService {
     }
   }
 
-  private Pageable createPageRequestUsing(int page, int size) {
-    // Sorting after id - highest id = latest entry
-    Sort sort = Sort.by("id").descending();
-    return PageRequest.of(page, size, sort);
-  }
-
-  public Equation saveUserWithEquation(User user, Equation equation) {
-    user.addEquation(equation);
-    user = userRepository.save(user);
-
-    return user.getEquations().stream()
-        .sorted(Comparator.comparing(Equation::getId).reversed())
-        .filter(e -> e.equals(equation))
-        .findFirst()
-        .orElse(null);
-  }
   public URI createUserUri(User user) {
    return ServletUriComponentsBuilder
         .fromCurrentRequest()
