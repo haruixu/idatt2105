@@ -11,7 +11,7 @@ export const submissionRequest = (user) => {
     return axios.post(baseurl + "/submissions", user, config);
 }
 
-export const calculationsRequest = (token) => {
+export const calculationsRequest = () => {
     const config = {
         headers: {
             "Content-type": "application/json",
